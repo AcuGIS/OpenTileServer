@@ -16,7 +16,7 @@ CND_FOLDER='https://www.mapfig.com/'
 
 #User for DB and rednerd
 OSM_USER='tile';			#system user for renderd and db
-OSM_USER_PASS='osm2015';	#system user password
+OSM_USER_PASS='osm2015SgsjcK';	#CHANGE ME
 OSM_PG_PASS=$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c32);
 OSM_DB='gis';				#osm database name
 VHOST=$(hostname -f)
