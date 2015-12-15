@@ -458,9 +458,6 @@ sed -i.save 's/#\?autovacuum.*/autovacuum = on/' /etc/postgresql/${PG_VER}/main/
 ldconfig
 enable_osm_updates
 
-#tiles need to have access without password ?
-#sed -i 's/local all all.*/local all all md5/'  /etc/postgresql/${PG_VER}/main/pg_hba.conf
-
 #Restart services
 service postgresql restart
 service apache2 reload
