@@ -12,7 +12,15 @@ Step 2: Make it executable:
 
 <code>chmod 755 opentileserver.sh</code>
 
-Step 3: Run the script
+Step 3:
+
+vi and change the password on line 19 to something difficult
+
+<code>
+OSM_USER_PASS='osm2015SgsjcK';	#CHANGE ME
+</code>
+
+Step 4: Run the script
 
 ## Script usage:
 
