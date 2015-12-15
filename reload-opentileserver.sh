@@ -5,4 +5,4 @@
 #	(pg_config, osm2pgsl, ...) are installed.
 #Usage: reload-opentileserver.sh [-add] [pbf_url]
 
-
+re-working
