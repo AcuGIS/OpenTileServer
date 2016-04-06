@@ -7,6 +7,10 @@
 # ./opentileserver.sh web carto http://download.geofabrik.de/north-america/us/delaware-latest.osm.pbf
 
 
+#To run in non-Latin language uncomment below
+#export LC_ALL=C
+
+
 WEB_MODE="${1}"         #web,ssl
 OSM_STYLE="${2}"	#bright, carto
 PBF_URL="${3}";	#get URL from first parameter, http://download.geofabrik.de/europe/germany-latest.osm.pbf
