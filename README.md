@@ -21,7 +21,7 @@ OSM_USER_PASS='osm2015SgsjcK';	#CHANGE ME
 </code>
 
 If using a non-Latin alphabet, ucomment line 24 below if needed:
-export LC_ALL=C
+<code>export LC_ALL=C</code>
 See https://github.com/MapFig/opentileserver/issues/4
 
 Step 4: Run the script
