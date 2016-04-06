@@ -4,7 +4,8 @@
 #Note: This script assumes all external commands
 #	(pg_config, osm2pgsl, ...) are installed.
 #Usage: reload-opentileserver.sh [-add] [pbf_url]
-
+# To run in non-Latin language uncomment below
+#export LC_ALL=C
 PBF_ADD='no'
 if [ "${1}" == '-add' ]; then
 	PBF_ADD='yes'
