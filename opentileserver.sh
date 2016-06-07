@@ -5,6 +5,9 @@
 #Usage: ./opentileserver.sh [web|ssl] [bright|carto] [pbf_url]"
 #Example for Delaware
 # ./opentileserver.sh web carto http://download.geofabrik.de/north-america/us/delaware-latest.osm.pbf
+## modify by GeoFrizz
+## tested on Ubuntu 14.04 -> ubuntu-14.04.4-server-amd64.iso
+## installed only with OpenSSH service
 
 
 #To run in non-Latin language uncomment below
@@ -176,22 +179,28 @@ CMD_EOF
 
 #Steps
 #1 Update ATP and isntall needed packages
+locale-gen "it_IT.UTF-8"
+dpkg-reconfigure locales
+
 apt-get clean
 apt-get update
+apt-get upgrade -y
 
 if [ $? -ne 0 ]; then	echo "Error: Apt update failed";	exit 1;	fi
 apt-get -y install	libboost-all-dev subversion git-core tar unzip wget bzip2 \
 					build-essential autoconf libtool libxml2-dev libgeos-dev \
 					libgeos++-dev libpq-dev libbz2-dev libproj-dev munin-node \
 					munin libprotobuf-c0-dev protobuf-c-compiler libfreetype6-dev \
-					libpng12-dev libtiff4-dev libicu-dev libgdal-dev libcairo-dev \
+					libpng12-dev libtiff4-dev libicu-dev libgdal-dev libcairo2-dev \
 					libcairomm-1.0-dev apache2 apache2-dev libagg-dev liblua5.2-dev \
 					ttf-unifont fonts-arphic-ukai fonts-arphic-uming fonts-thai-tlwg \
-					lua5.1 liblua5.1-dev libgeotiff-epsg node-carto \
+					lua5.1 liblua5.1-0-dev libgeotiff-epsg node-carto \
 					postgresql postgresql-contrib postgis postgresql-9.3-postgis-2.1 \
 					php5 libapache2-mod-php5
 
 if [ $? -ne 0 ]; then	echo "Error: Apt install failed";	exit 1; fi
+service postgresql restart
+service apache2 restart
 
 #3 Create system user
 if [ $(grep -c ${OSM_USER} /etc/passwd) -eq 0 ]; then	#if we don't have the OSM user
@@ -203,7 +212,9 @@ fi
 
 cat >/etc/postgresql/9.3/main/pg_hba.conf <<CMD_EOF
 local all all trust
-host all all 127.0.0.1 255.255.255.255 md5
+host all all 127.0.0.1/32 trust
+host all all ::1/128 trust
+#host all all 127.0.0.1 255.255.255.255 md5
 host all all 0.0.0.0/0 md5
 host all all ::1/128 md5
 CMD_EOF
