@@ -115,7 +115,9 @@ function style_osm_bright(){
 
 function style_osm_carto(){
 
-	apt-get -y install ttf-dejavu fonts-droid ttf-unifont fonts-sipa-arundina fonts-sil-padauk fonts-khmeros ttf-indic-fonts-core fonts-taml-tscu ttf-kannada-fonts
+	apt-get -y install fonts-dejavu-core fonts-droid-fallback ttf-unifont \
+  fonts-sipa-arundina fonts-sil-padauk fonts-khmeros \
+  fonts-beng-extra fonts-gargi fonts-taml-tscu fonts-tibetan-machine
 
 	cd /usr/local/share/maps/style
 	if [ ! -d openstreetmap-carto-master ]; then
