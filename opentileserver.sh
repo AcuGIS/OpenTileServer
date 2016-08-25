@@ -10,13 +10,10 @@
 #To run in non-Latin language uncomment below
 #export LC_ALL=C
 
-
 WEB_MODE="${1}"         #web,ssl
 OSM_STYLE="${2}"	#bright, carto
 PBF_URL="${3}";	#get URL from first parameter, http://download.geofabrik.de/europe/germany-latest.osm.pbf
 OSM_STYLE_XML=''
-
-CND_FOLDER='https://www.mapfig.com/'
 
 #User for DB and rednerd
 OSM_USER='tile';			#system user for renderd and db
