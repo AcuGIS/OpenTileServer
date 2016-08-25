@@ -2,7 +2,7 @@
 
 This script is for building a basic tile server with OpenStreetMap data.
 
-Only for use on a clean Ubuntu 14 install!!
+Only for use on a clean Ubuntu 16.04 LTS (Xenial Xerus) install!
 
 Before proceeding, see <a href="opentileserver.org" target="blank"> opentileserver.org </a> for limitations, etc..
 
@@ -64,4 +64,3 @@ You should see a page as below:
 
 
 Click on both the OpenLayer and Leaflet Examples and check your installation is rendering
-

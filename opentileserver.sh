@@ -22,11 +22,6 @@ OSM_PG_PASS=$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c32);
 OSM_DB='gis';				#osm database name
 VHOST=$(hostname -f)
 
-#C_MEM is the sum of free memory and cached memory
-C_MEM=$(free -m | grep -i 'mem:' | sed 's/[ \t]\+/ /g' | cut -f4,7 -d' ' | tr ' ' '+' | bc)
-NP=$(grep -c 'model name' /proc/cpuinfo)
-osm2pgsql_OPTS="--slim -d ${OSM_DB} -C ${C_MEM} --number-processes ${NP} --hstore"
-
 #Check input parameters
 if [ -z "${PBF_URL}" -o \
 	 $(echo "${OSM_STYLE}" | grep -c '[briht|carto]') -eq 0 -o \
@@ -35,6 +30,19 @@ if [ -z "${PBF_URL}" -o \
 fi
 
 touch /root/auth.txt
+
+apt-get clean
+apt-get update
+
+if [ $? -ne 0 ]; then	echo "Error: Apt update failed";	exit 1;	fi
+apt-get -y install bc
+
+if [ $? -ne 0 ]; then	echo "Error: Apt install failed";	exit 1; fi
+
+#C_MEM is the sum of free memory and cached memory
+C_MEM=$(free -m | grep -i 'mem:' | sed 's/[ \t]\+/ /g' | cut -f4,7 -d' ' | tr ' ' '+' | bc)
+NP=$(grep -c 'model name' /proc/cpuinfo)
+osm2pgsql_OPTS="--slim -d ${OSM_DB} -C ${C_MEM} --number-processes ${NP} --hstore"
 
 function style_osm_bright(){
 	cd /usr/local/share/maps/style
@@ -182,12 +190,12 @@ apt-get -y install	libboost-all-dev subversion git-core tar unzip wget bzip2 \
 					build-essential autoconf libtool libxml2-dev libgeos-dev \
 					libgeos++-dev libpq-dev libbz2-dev libproj-dev munin-node \
 					munin libprotobuf-c0-dev protobuf-c-compiler libfreetype6-dev \
-					libpng12-dev libtiff4-dev libicu-dev libgdal-dev libcairo-dev \
+					libpng12-dev libtiff5-dev libicu-dev libgdal-dev libcairo-dev \
 					libcairomm-1.0-dev apache2 apache2-dev libagg-dev liblua5.2-dev \
 					ttf-unifont fonts-arphic-ukai fonts-arphic-uming fonts-thai-tlwg \
 					lua5.1 liblua5.1-dev libgeotiff-epsg node-carto \
-					postgresql postgresql-contrib postgis postgresql-9.3-postgis-2.1 \
-					php5 libapache2-mod-php5
+					postgresql postgresql-contrib postgis postgresql-9.5-postgis-2.2 \
+					php7.0 libapache2-mod-php7.0 php7.0-xml
 
 if [ $? -ne 0 ]; then	echo "Error: Apt install failed";	exit 1; fi
 
@@ -199,7 +207,8 @@ if [ $(grep -c ${OSM_USER} /etc/passwd) -eq 0 ]; then	#if we don't have the OSM 
 	if [ $? -ne 0 ]; then	echo "Error: Fail to set OSM user pass";exit 1; fi
 fi
 
-cat >/etc/postgresql/9.3/main/pg_hba.conf <<CMD_EOF
+PG_VER=$(pg_config | grep '^VERSION' | cut -f4 -d' ' | cut -f1,2 -d.)
+cat >/etc/postgresql/${PG_VER}/main/pg_hba.conf <<CMD_EOF
 local all all trust
 host all all 127.0.0.1 255.255.255.255 md5
 host all all 0.0.0.0/0 md5
@@ -232,7 +241,7 @@ if [ $? -ne 0 ]; then	echo "Error: Postgre failed to create extension";	exit 1; 
 
 #5 Installing osm2pgsql and mapnik
 #osm2pgsql has pg-9.3 dependency
-apt-get install -y osm2pgsql python-mapnik2 libmapnik2.2 mapnik-utils libmapnik2-dev
+apt-get install -y osm2pgsql python-mapnik libmapnik3.0 mapnik-utils libmapnik-dev
 
 #7 Install modtile and renderd
 mkdir -p ~/src
@@ -422,7 +431,6 @@ CMD_EOF
 fi
 
 #13 Tuning your system
-PG_VER=$(pg_config | grep '^VERSION' | cut -f4 -d' ' | cut -f1,2 -d.)
 sed -i 's/#\?shared_buffers.*/shared_buffers = 128MB/' /etc/postgresql/${PG_VER}/main/postgresql.conf
 sed -i 's/#\?checkpoint_segments.*/checkpoint_segments = 20/' /etc/postgresql/${PG_VER}/main/postgresql.conf
 sed -i 's/#\?maintenance_work_mem.*/maintenance_work_mem = 256MB/' /etc/postgresql/${PG_VER}/main/postgresql.conf
@@ -463,6 +471,7 @@ enable_osm_updates
 #Restart services
 service postgresql restart
 service apache2 reload
+systemctl daemon-reload
 service renderd restart
 
 echo <<EOF
