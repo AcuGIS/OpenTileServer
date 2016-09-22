@@ -28,7 +28,7 @@ VHOST=$(hostname -f)
 #C_MEM is the sum of free memory and cached memory
 C_MEM=$(free -m | grep -i 'mem:' | sed 's/[ \t]\+/ /g' | cut -f4,7 -d' ' | tr ' ' '+' | bc)
 NP=$(grep -c 'model name' /proc/cpuinfo)
-osm2pgsql_OPTS="--slim -d ${OSM_DB} -C ${C_MEM} --number-processes ${NP} --hstore"
+osm2pgsql_OPTS="--slim -d ${OSM_DB} -C 8000 --number-processes ${NP} --hstore"
 
 #Check input parameters
 if [ -z "${PBF_URL}" -o \
