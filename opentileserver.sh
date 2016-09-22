@@ -369,7 +369,7 @@ if [ "${WEB_MODE}" == 'ssl' ]; then
 		chmod 400 server.key
 
 		openssl req -new -key server.key -days 3650 -out server.crt -passin pass:${SSL_PASS} -x509 -subj '/C=CA/ST=Frankfurt/L=Frankfurt/O=acuciva-de.com/CN=acuciva-de.com/emailAddress=info@acugis.com'
-		chown apache:apache server.key server.crt
+		chown www-data:www-data server.key server.crt
 	fi
 
 	cat >/etc/apache2/sites-available/000-default-ssl.conf <<CMD_EOF
