@@ -144,7 +144,7 @@ function enable_osm_updates(){
 	#2. Generating state.txt
 	if [ ! -f ${WORKDIR_OSM}/state.txt ]; then
 		#NOTE: If you want hourly updates set stream=hourly
-		STATE_URL="http://osm.personalwerk.de/replicate-sequences/?Y=$(date '+%Y')&m=$(date '+%n')&d=$(date '+%d')&H=$(date '+%H')&i=$(date '+%M')&s=$(date '+%S')&stream=day"
+		STATE_URL="http://osm.personalwerk.de/replicate-sequences/?Y=$(date '+%Y')&m=$(date '+%m')&d=$(date '+%d')&H=$(date '+%H')&i=$(date '+%M')&s=$(date '+%S')&stream=day"
 		wget -O${WORKDIR_OSM}/state.txt ${STATE_URL}
 		if [ $? -ne 0 ]; then echo "Error: Failed to get Osmosis state.txt"; exit 1; fi
 	fi
