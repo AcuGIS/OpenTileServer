@@ -21,6 +21,8 @@ OSM_PG_PASS=$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c32);
 OSM_DB='gis';				#osm database name
 VHOST=$(hostname -f)
  
+#To run in non-Latin language uncomment below
+#export LC_ALL=C
 #C_MEM is the sum of free memory and cached memory
 C_MEM=$(free -m | grep -i 'mem:' | sed 's/[ \t]\+/ /g' | cut -f4,7 -d' ' | tr ' ' '+' | bc)
 NP=$(grep -c 'model name' /proc/cpuinfo)
