@@ -105,7 +105,7 @@ function install_npm_carto(){
 	ln -sf /usr/local/lib/node_modules/carto/bin/carto /usr/local/bin/carto
  
 	#fix for npm carto crash
-	ln -s /usr/bin/nodejs /usr/bin/node
+	ln -sf /usr/bin/nodejs /usr/bin/node
 }
  
 function style_osm_carto(){
