@@ -1,5 +1,5 @@
 #!/bin/bash -e
-#Version: 0.3.16
+#Version: 0.3.17
 #For use on clean Ubuntu 14 only!!!
 #MapFig, Inc
 #Usage: ./opentileserver.sh [web|ssl] [bright|carto] [pbf_url]"
@@ -12,17 +12,16 @@ OSM_STYLE="${2}"	#bright, carto
 PBF_URL="${3}";	#get URL from first parameter, http://download.geofabrik.de/europe/germany-latest.osm.pbf
 OSM_STYLE_XML=''
  
-CND_FOLDER='https://www.mapfig.com/'
- 
 #User for DB and rednerd
 OSM_USER='tile';			#system user for renderd and db
 OSM_USER_PASS=$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c32)
 OSM_PG_PASS=$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c32);
 OSM_DB='gis';				#osm database name
 VHOST=$(hostname -f)
- 
+
 #To run in non-Latin language uncomment below
 #export LC_ALL=C
+ 
 #C_MEM is the sum of free memory and cached memory
 C_MEM=$(free -m | grep -i 'mem:' | sed 's/[ \t]\+/ /g' | cut -f4,7 -d' ' | tr ' ' '+' | bc)
 NP=$(grep -c 'model name' /proc/cpuinfo)
@@ -100,12 +99,10 @@ function style_osm_bright(){
 }
  
 function install_npm_carto(){
-	apt-get -y install npm
-	npm install -g carto
+	apt-get -y install npm nodejs nodejs-legacy
+	#Latest 0.17.2 doesn't install!
+	npm install -g carto@0.16.3
 	ln -sf /usr/local/lib/node_modules/carto/bin/carto /usr/local/bin/carto
- 
-	#fix for npm carto crash
-	ln -sf /usr/bin/nodejs /usr/bin/node
 }
  
 function style_osm_carto(){
@@ -120,7 +117,7 @@ function style_osm_carto(){
 	fi
 	cd openstreetmap-carto-3.0.x/
  
-	if [ ! -d data -o $(find data/ -type f -name "*.shp" | wc -l) -ne 6 ]; then
+	if [ $(find data/ -type f -name "*.shp" 2>/dev/null | wc -l) -ne 6 ]; then
 		./scripts/get-shapefiles.py
 		rm data/*.zip data/world_boundaries-spherical.tgz
 	fi
@@ -169,7 +166,7 @@ CMD_EOF
 }
  
 #Steps
-#1 Update ATP and isntall needed packages
+#1 Update ATP and install needed packages
 apt-get clean
 apt-get update
  
