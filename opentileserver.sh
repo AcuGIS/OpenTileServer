@@ -9,10 +9,10 @@
  
 WEB_MODE="${1}"         #web,ssl
 OSM_STYLE="${2}"	#bright, carto
-PBF_URL="${3}";	#get URL from first parameter, http://download.geofabrik.de/europe/germany-latest.osm.pbf
+PBF_URL="${3}";	        #get URL from first parameter, e.g. http://download.geofabrik.de/europe/germany-latest.osm.pbf
 OSM_STYLE_XML=''
  
-#User for DB and rednerd
+#User for DB and renderd
 OSM_USER='tile';			#system user for renderd and db
 OSM_USER_PASS=$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c32)
 OSM_PG_PASS=$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c32);
@@ -21,6 +21,9 @@ VHOST=$(hostname -f)
  
 NP=$(grep -c 'model name' /proc/cpuinfo)
 osm2pgsql_OPTS="--slim -d ${OSM_DB} --number-processes ${NP} --hstore"
+
+#To run in non-Latin language uncomment below
+#export LC_ALL=C
  
 #Check input parameters
 if [ -z "${PBF_URL}" -o \
@@ -70,9 +73,7 @@ function style_osm_bright(){
 		sed -i.save 's|.*10m-populated-places-simple.zip"|"file":"/usr/local/share/maps/style/osm-bright-master/shp/ne_10m_populated_places/ne_10m_populated_places.shp",\n"type": "shape"|' osm-bright/osm-bright.osm2pgsql.mml
  
 		sed -i.save '/name":[ \t]*"ne_places"/a"srs": "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"' osm-bright/osm-bright.osm2pgsql.mml
-		#Delete
-		#"srs": "",
-		#      "srs_name": "",
+		
 		LINE_FROM=$(grep -n '"srs": "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"' osm-bright/osm-bright.osm2pgsql.mml | cut -f1 -d':')
 		let LINE_FROM=LINE_FROM+1
 		let LINE_TO=LINE_FROM+1
