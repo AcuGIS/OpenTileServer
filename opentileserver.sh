@@ -18,14 +18,9 @@ OSM_USER_PASS=$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c32)
 OSM_PG_PASS=$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c32);
 OSM_DB='gis';				#osm database name
 VHOST=$(hostname -f)
-
-#To run in non-Latin language uncomment below
-#export LC_ALL=C
  
-#C_MEM is the sum of free memory and cached memory
-C_MEM=$(free -m | grep -i 'mem:' | sed 's/[ \t]\+/ /g' | cut -f4,7 -d' ' | tr ' ' '+' | bc)
 NP=$(grep -c 'model name' /proc/cpuinfo)
-osm2pgsql_OPTS="--slim -d ${OSM_DB} -C ${C_MEM} --number-processes ${NP} --hstore"
+osm2pgsql_OPTS="--slim -d ${OSM_DB} --number-processes ${NP} --hstore"
  
 #Check input parameters
 if [ -z "${PBF_URL}" -o \
@@ -157,7 +152,7 @@ function enable_osm_updates(){
 		echo >/etc/cron.daily/osm-update.sh <<CMD_EOF
 #!/bin/bash
 export WORKDIR_OSM=/home/${OSM_USER}/.osmosis
-export PGPASSWORD="${MAPFIG_PG_PASS}"
+export PGPASSWORD="${OSM_PG_PASS}"
 osmosis --read-replication-interval workingDirectory=${WORKDIR_OSM} --simplify-change --write-xml-change /tmp/changes.osc.gz
 sudo -u postgres osm2pgsql --append ${osm2pgsql_OPTS} /tmp/changes.osc.gz
 CMD_EOF
@@ -166,11 +161,9 @@ CMD_EOF
 }
  
 #Steps
-#1 Update ATP and install needed packages
+#1 Update ATP and isntall needed packages
 apt-get clean
 apt-get update
- 
-if [ $? -ne 0 ]; then	echo "Error: Apt update failed";	exit 1;	fi
 apt-get -y install	libboost-all-dev subversion git-core tar unzip wget bzip2 \
 					build-essential autoconf libtool libxml2-dev libgeos-dev \
 					libgeos++-dev libpq-dev libbz2-dev libproj-dev munin-node \
@@ -181,6 +174,7 @@ apt-get -y install	libboost-all-dev subversion git-core tar unzip wget bzip2 \
 					lua5.1 liblua5.1-dev libgeotiff-epsg node-carto \
 					postgresql postgresql-contrib postgis postgresql-9.3-postgis-2.1 \
 					php5 libapache2-mod-php5
+PG_VER=$(pg_config | grep '^VERSION' | cut -f4 -d' ' | cut -f1,2 -d.)
  
 #3 Create system user
 if [ $(grep -c ${OSM_USER} /etc/passwd) -eq 0 ]; then	#if we don't have the OSM user
@@ -189,7 +183,7 @@ if [ $(grep -c ${OSM_USER} /etc/passwd) -eq 0 ]; then	#if we don't have the OSM 
 	echo "${OSM_USER} pass: ${OSM_USER_PASS}" >> /root/auth.txt
 fi
  
-cat >/etc/postgresql/9.3/main/pg_hba.conf <<CMD_EOF
+cat >/etc/postgresql/${PG_VER}/main/pg_hba.conf <<CMD_EOF
 local all all trust
 host all all 127.0.0.1 255.255.255.255 md5
 host all all 0.0.0.0/0 md5
@@ -401,15 +395,14 @@ else
 	DocumentRoot /var/www/html
 	ServerName ${VHOST}
  
-	ErrorLog ${APACHE_LOG_DIR}/error.log
-	CustomLog ${APACHE_LOG_DIR}/access.log combined
+	ErrorLog \${APACHE_LOG_DIR}/error.log
+	CustomLog \${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
 CMD_EOF
 	ln -sf /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-enabled/
 fi
  
 #13 Tuning your system
-PG_VER=$(pg_config | grep '^VERSION' | cut -f4 -d' ' | cut -f1,2 -d.)
 sed -i 's/#\?shared_buffers.*/shared_buffers = 128MB/' /etc/postgresql/${PG_VER}/main/postgresql.conf
 sed -i 's/#\?checkpoint_segments.*/checkpoint_segments = 20/' /etc/postgresql/${PG_VER}/main/postgresql.conf
 sed -i 's/#\?maintenance_work_mem.*/maintenance_work_mem = 256MB/' /etc/postgresql/${PG_VER}/main/postgresql.conf
@@ -433,7 +426,10 @@ if [ ! -f ${PBF_FILE} ]; then
 	wget ${PBF_URL}
 	chown ${OSM_USER}:${OSM_USER} ${PBF_FILE}
 fi
-sudo -u ${OSM_USER} osm2pgsql ${osm2pgsql_OPTS} ${PBF_FILE}
+ 
+#get available memory just before we call osm2pgsql!
+let C_MEM=$(free -m | grep -i 'mem:' | sed 's/[ \t]\+/ /g' | cut -f4,7 -d' ' | tr ' ' '+')-200
+sudo -u ${OSM_USER} osm2pgsql ${osm2pgsql_OPTS} -C ${C_MEM} ${PBF_FILE}
  
 if [ $? -eq 0 ]; then	#If import went good
 	rm -rf ${PBF_FILE}
@@ -446,8 +442,8 @@ sed -i.save 's/#\?autovacuum.*/autovacuum = on/' /etc/postgresql/${PG_VER}/main/
 ldconfig
 enable_osm_updates
  
-#tiles need to have access without password ?
-#sed -i 's/local all all.*/local all all md5/'  /etc/postgresql/${PG_VER}/main/pg_hba.conf
+#tiles need to have access without password
+sed -i 's/local all all.*/local all all trust/'  /etc/postgresql/${PG_VER}/main/pg_hba.conf
  
 #Restart services
 service postgresql restart
