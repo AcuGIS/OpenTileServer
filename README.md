@@ -2,7 +2,7 @@
 
 This script is for building a basic tile server with OpenStreetMap data.
 
-Only for use on a clean Ubuntu 14 install!!
+Only for use on a clean Ubuntu 14 or Ubuntu 16 install!!
 
 Before proceeding, see <a href="opentileserver.org" target="blank"> opentileserver.org </a> for limitations, etc..
 
@@ -18,7 +18,7 @@ If using a non-Latin alphabet, ucomment line 24 below if needed:
 
 <code>export LC_ALL=C</code>
 
-See https://github.com/MapFig/opentileserver/issues/4
+See https://github.com/AcuGIS/opentileserver/issues/4
 
 Step 4: Run the script
 
