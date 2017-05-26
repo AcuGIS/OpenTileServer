@@ -130,7 +130,7 @@ function style_osm_carto(){
 	cd openstreetmap-carto-master;
 
 	if [ $(find data/ -type f -name "*.shp" | wc -l) -ne 6 ]; then
-		./get-shapefiles.sh
+		./scripts/get-shapefiles.sh
 		rm data/*.zip data/world_boundaries-spherical.tgz
 	fi
 
