@@ -428,7 +428,7 @@ if [ ! -f ${PBF_FILE} ]; then
 	chown ${OSM_USER}:${OSM_USER} ${PBF_FILE}
 fi
  
-#get available memory just before we call osm2pgsql!
+#Get available memory just before we call osm2pgsql!
 let C_MEM=$(free -m | grep -i 'mem:' | sed 's/[ \t]\+/ /g' | cut -f7 -d' ')-200
 sudo -u ${OSM_USER} osm2pgsql ${osm2pgsql_OPTS} -C ${C_MEM} ${PBF_FILE}
  
