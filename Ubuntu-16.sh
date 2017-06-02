@@ -299,9 +299,9 @@ ModTileMissingRequestTimeout 30' > /etc/apache2/sites-available/tile.conf
 fi
  
 #Download html pages
-rm /var/www/html/index.html
+rm -f /var/www/html/index.html
 for p in openlayers-example leaflet-example index; do
-	wget -P/var/www/html/ https://cdn.acugis.com/osm-assets/htmls/${p}.html
+	wget -P/var/www/html/ http://cdn.acugis.com/osm-assets/htmls/${p}.html
 done
  
 sed -i.save "s|localhost|$(hostname -I | tr -d ' ')|" /var/www/html/leaflet-example.html
