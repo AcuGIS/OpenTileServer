@@ -23,7 +23,7 @@ if [ -z "${PBF_URL}" ]; then
 fi
  
 NP=$(grep -c 'model name' /proc/cpuinfo)
-osm2pgsql_OPTS="--slim -d ${OSM_DB} --number-processes ${NP}"
+osm2pgsql_OPTS=" -d ${OSM_DB} --number-processes ${NP}"
 PG_VER=$(pg_config | grep '^VERSION' | cut -f4 -d' ' | cut -f1,2 -d.)
  
 #Clear renderd cache
@@ -64,6 +64,10 @@ CREATE EXTENSION postgis;
 ALTER TABLE geometry_columns OWNER TO ${OSM_USER};
 ALTER TABLE spatial_ref_sys OWNER TO ${OSM_USER};
 EOF_CMD
+	osm2pgsql_OPTS+=' --slim'
+else
+	#keep old database and append new map
+	osm2pgsql_OPTS+=' --append'
 fi
  
 let C_MEM=$(free -m | grep -i 'mem:' | sed 's/[ \t]\+/ /g' | cut -f4,7 -d' ' | tr ' ' '+')-200
