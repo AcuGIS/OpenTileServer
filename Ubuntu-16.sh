@@ -149,7 +149,7 @@ function enable_osm_updates(){
  
 	#4. Add step 4 to cron, to make it run every day
 	if [ ! -f /etc/cron.daily/osm-update.sh ]; then
-		echo >/etc/cron.daily/osm-update.sh <<CMD_EOF
+		cat >/etc/cron.daily/osm-update.sh <<CMD_EOF
 #!/bin/bash
 export WORKDIR_OSM=/home/${OSM_USER}/.osmosis
 export PGPASSWORD="${OSM_PG_PASS}"
