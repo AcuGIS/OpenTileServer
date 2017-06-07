@@ -301,7 +301,7 @@ fi
 #Download html pages
 rm -f /var/www/html/index.html
 for p in openlayers-example leaflet-example index; do
-	wget -P/var/www/html/ http://cdn.acugis.com/osm-assets/htmls/${p}.html
+	wget --no-check-certificate -P/var/www/html/ https://cdn.acugis.com/osm-assets/htmls/${p}.html
 done
  
 sed -i.save "s|localhost|$(hostname -I | tr -d ' ')|" /var/www/html/leaflet-example.html
