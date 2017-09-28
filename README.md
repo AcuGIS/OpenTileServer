@@ -37,7 +37,7 @@ pbf_url: Complete PBF url from GeoFarbrik (or other source)
 
 ## Examples:
 
-Load Delware data with openstreetmap-carto style and no SSL:
+Load Delaware data with openstreetmap-carto style and no SSL:
 
 <code>./opentileserver.sh web carto http://download.geofabrik.de/north-america/us/delaware-latest.osm.pbf </code>
 
