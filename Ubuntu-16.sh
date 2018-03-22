@@ -165,7 +165,7 @@ CMD_EOF
 apt-get clean
 apt-get update
 apt-get -y install	libboost-all-dev subversion git-core tar unzip wget bzip2 \
-					build-essential autoconf libtool libxml2-dev libgeos-dev \
+					build-essential autoconf automake libtool libxml2-dev libgeos-dev \
 					libgeos++-dev libpq-dev libbz2-dev libproj-dev munin-node \
 					munin libprotobuf-c-dev protobuf-c-compiler libfreetype6-dev \
 					libpng12-dev libtiff5-dev libicu-dev libgdal-dev libcairo2-dev \
