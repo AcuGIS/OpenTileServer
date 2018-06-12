@@ -24,7 +24,7 @@ osm2pgsql_OPTS="--slim -d ${OSM_DB} --number-processes ${NP} --hstore"
  
 #Check input parameters
 if [ -z "${PBF_URL}" -o \
-	 $(echo "${OSM_STYLE}" | grep -c '[briht|carto]') -eq 0 -o \
+	 $(echo "${OSM_STYLE}" | grep -c '[bright|carto]') -eq 0 -o \
 	 $(echo "${WEB_MODE}"  | grep -c '[web|ssl]')	  -eq 0 ]; then
 	echo "Usage: $0 [web|ssl] [bright|carto] pbf_url"; exit 1;
 fi
