@@ -219,7 +219,7 @@ apt-get install -y osm2pgsql python-mapnik2 libmapnik2.2 mapnik-utils libmapnik2
 mkdir -p ~/src
 if [ -z "$(which renderd)" ]; then	#if mapnik is not installed
 	cd ~/src
-	git clone git://github.com/openstreetmap/mod_tile.git
+	git clone https://github.com/openstreetmap/mod_tile.git
 	if [ ! -d mod_tile ]; then "Error: Failed to download mod_tile"; exit 1; fi
  
 	cd mod_tile
