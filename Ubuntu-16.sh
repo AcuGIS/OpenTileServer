@@ -105,12 +105,12 @@ function style_osm_carto(){
 	apt-get -y install ttf-dejavu fonts-droid-fallback ttf-unifont fonts-sipa-arundina fonts-sil-padauk fonts-khmeros fonts-indic fonts-taml-tscu fonts-lohit-knda fonts-knda
  
 	cd /usr/local/share/maps/style
-	if [ ! -d openstreetmap-carto-3.0.x ]; then
-		wget https://github.com/gravitystorm/openstreetmap-carto/archive/v3.0.x.zip
-		unzip v3.0.x.zip
-		rm v3.0.x.zip
+	if [ ! -d openstreetmap-carto-3.0.1 ]; then
+		wget https://github.com/gravitystorm/openstreetmap-carto/archive/v3.0.1.zip
+		unzip v3.0.1.zip
+		rm v3.0.1.zip
 	fi
-	cd openstreetmap-carto-3.0.x/
+	cd openstreetmap-carto-3.0.1/
  
 	if [ $(find data/ -type f -name "*.shp" 2>/dev/null | wc -l) -ne 6 ]; then
 		./scripts/get-shapefiles.py
@@ -219,7 +219,7 @@ apt-get install -y osm2pgsql python-mapnik libmapnik3.0 mapnik-utils libmapnik-d
 mkdir -p ~/src
 if [ -z "$(which renderd)" ]; then	#if mapnik is not installed
 	cd ~/src
-	git clone git://github.com/openstreetmap/mod_tile.git
+	git clone https://github.com/openstreetmap/mod_tile.git
 	if [ ! -d mod_tile ]; then "Error: Failed to download mod_tile"; exit 1; fi
  
 	cd mod_tile
