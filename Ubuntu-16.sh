@@ -1,7 +1,7 @@
 #!/bin/bash -e
 #Version: 0.1.1
 #For use on clean Ubuntu 16 only!!!
-#MapFig, Inc
+#Cited, Inc
 #Usage: ./opentileserver.sh [web|ssl] [bright|carto] [pbf_url]"
 #Example for Delaware
 # ./opentileserver.sh web carto http://download.geofabrik.de/north-america/us/delaware-latest.osm.pbf
