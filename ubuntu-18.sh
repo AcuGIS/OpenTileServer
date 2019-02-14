@@ -150,15 +150,15 @@ function enable_osm_updates(){
 	sed -i.save "s|#\?baseUrl=.*|baseUrl=${UPDATE_URL}|" ${WORKDIR_OSM}/configuration.txt
  
 	#4. Add step 4 to cron, to make it run every day
-	if [ ! -f /etc/cron.daily/osm-update.sh ]; then
-		cat >/etc/cron.daily/osm-update.sh <<CMD_EOF
+	if [ ! -f /etc/cron.daily/osm_update ]; then
+		cat >/etc/cron.daily/osm_update <<CMD_EOF
 #!/bin/bash
 export WORKDIR_OSM=/home/${OSM_USER}/.osmosis
 export PGPASSWORD="${OSM_PG_PASS}"
 osmosis --read-replication-interval workingDirectory=${WORKDIR_OSM} --simplify-change --write-xml-change /tmp/changes.osc.gz
 sudo -u postgres osm2pgsql --append ${osm2pgsql_OPTS} /tmp/changes.osc.gz
 CMD_EOF
-		chmod +x /etc/cron.daily/osm-update.sh
+		chmod +x /etc/cron.daily/osm_update
 	fi
 }
  
