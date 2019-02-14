@@ -139,8 +139,8 @@ function enable_osm_updates(){
 	#2. Generating state.txt
 	if [ ! -f ${WORKDIR_OSM}/state.txt ]; then
 		#NOTE: If you want hourly updates set stream=hourly
-		STATE_URL="http://osm.personalwerk.de/replicate-sequences/?Y=$(date '+%Y')&m=$(date '+%m')&d=$(date '+%d')&H=$(date '+%H')&i=$(date '+%M')&s=$(date '+%S')&stream=day"
-		wget -O${WORKDIR_OSM}/state.txt ${STATE_URL}
+    STATE_URL="https://replicate-sequences.osm.mazdermind.de/?$(date -u +"%Y-%m-%dT%TZ")&stream=day"
+		wget --no-check-certificate -O${WORKDIR_OSM}/state.txt ${STATE_URL}
 	fi
  
 	#3. Fix configuration.txt
@@ -150,15 +150,15 @@ function enable_osm_updates(){
 	sed -i.save "s|#\?baseUrl=.*|baseUrl=${UPDATE_URL}|" ${WORKDIR_OSM}/configuration.txt
  
 	#4. Add step 4 to cron, to make it run every day
-	if [ ! -f /etc/cron.daily/osm-update.sh ]; then
-		cat >/etc/cron.daily/osm-update.sh <<CMD_EOF
+	if [ ! -f /etc/cron.daily/osm_update ]; then
+		cat >/etc/cron.daily/osm_update <<CMD_EOF
 #!/bin/bash
 export WORKDIR_OSM=/home/${OSM_USER}/.osmosis
 export PGPASSWORD="${OSM_PG_PASS}"
 osmosis --read-replication-interval workingDirectory=${WORKDIR_OSM} --simplify-change --write-xml-change /tmp/changes.osc.gz
 sudo -u postgres osm2pgsql --append ${osm2pgsql_OPTS} /tmp/changes.osc.gz
 CMD_EOF
-		chmod +x /etc/cron.daily/osm-update.sh
+		chmod +x /etc/cron.daily/osm_update
 	fi
 }
  
@@ -486,4 +486,3 @@ OSM server install done.
 Your authentication data is in /root/auth.txt
 If you have CA signed certificates, replace server.crt and server.key in /etc/apache2/ssl
 EOF
-Gitpre
