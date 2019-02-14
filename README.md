@@ -32,7 +32,7 @@ Step 4: Run the script
 
 [bright|carto]: 'carto' for openstreetmap-carto or 'bright' for openstreetmap-bright
 
-pbf_url: Complete PBF url from GeoFarbrik (or other source)
+pbf_url: Complete PBF url from GeoFabrik (or other source)
 
 
 ## Examples:
