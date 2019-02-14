@@ -486,4 +486,3 @@ OSM server install done.
 Your authentication data is in /root/auth.txt
 If you have CA signed certificates, replace server.crt and server.key in /etc/apache2/ssl
 EOF
-Gitpre
