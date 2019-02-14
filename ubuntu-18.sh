@@ -139,8 +139,8 @@ function enable_osm_updates(){
 	#2. Generating state.txt
 	if [ ! -f ${WORKDIR_OSM}/state.txt ]; then
 		#NOTE: If you want hourly updates set stream=hourly
-		STATE_URL="http://osm.personalwerk.de/replicate-sequences/?Y=$(date '+%Y')&m=$(date '+%m')&d=$(date '+%d')&H=$(date '+%H')&i=$(date '+%M')&s=$(date '+%S')&stream=day"
-		wget -O${WORKDIR_OSM}/state.txt ${STATE_URL}
+    STATE_URL="https://replicate-sequences.osm.mazdermind.de/?$(date -u +"%Y-%m-%dT%TZ")&stream=day"
+		wget --no-check-certificate -O${WORKDIR_OSM}/state.txt ${STATE_URL}
 	fi
  
 	#3. Fix configuration.txt
