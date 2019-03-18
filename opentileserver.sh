@@ -1,8 +1,8 @@
 #!/bin/bash -e
 #Version: 0.5.1
-#Usage: ./opentileserver-reload.sh [web|ssl] [bright|carto] [pbf_url]"
+#Usage: ./opentileserver.sh [web|ssl] [bright|carto] [pbf_url]"
 #Example for Delaware
-# ./opentileserver-reload.sh web carto http://download.geofabrik.de/north-america/us/delaware-latest.osm.pbf
+# ./opentileserver.sh web carto http://download.geofabrik.de/north-america/us/delaware-latest.osm.pbf
 
 DIST_YEAR=$(lsb_release -sr | cut -d '.' -f 1)
 
