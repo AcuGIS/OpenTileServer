@@ -27,7 +27,7 @@ if [ -z "${PBF_URL}" -o \
 	 $(echo "${WEB_MODE}"  | grep -c '[web|ssl]')	  -eq 0 ]; then
 	echo "Usage: $0 [web|ssl] [bright|carto] pbf_url"; exit 1;
 fi
- 
+
 touch /root/auth.txt
  
 function style_osm_bright(){
