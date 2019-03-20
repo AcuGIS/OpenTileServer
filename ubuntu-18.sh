@@ -439,7 +439,7 @@ function load_data(){
 }
  
 #Steps
-#1 Update ATP and isntall needed packages
+#1 Update ATP and install needed packages
 apt-get clean
  
 #needed for a lot of packages!
