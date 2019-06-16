@@ -41,7 +41,7 @@ function style_osm_bright(){
  
 	for shp in 'land-polygons-split-3857' 'simplified-land-polygons-complete-3857'; do
 		if [ ! -d "osm-bright-master/shp/${shp}" ]; then
-			wget http://data.openstreetmapdata.com/${shp}.zip
+			wget https://osmdata.openstreetmap.de/download/${shp}.zip
 			unzip ${shp}.zip;
 			mv ${shp}/ osm-bright-master/shp/
 			rm ${shp}.zip
