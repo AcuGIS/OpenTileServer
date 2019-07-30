@@ -12,7 +12,7 @@ Step 1: Get opentileserver.sh script from GitHub
 
 Step 2: Make it executable:
 
-<code>chmod 755 opentileserver.sh</code>
+<code>chmod 755 opentileserver-ubuntu-xx.sh</code>
 
 Step 3 (for non-Latin alphabet):
 
@@ -26,7 +26,7 @@ Step 4: Run the script
 
 ## Script usage:
 
-<code>./opentileserver.sh  [web|ssl] [bright|carto] pbf_url</code>
+<code>./opentileserver-ubuntu-xx.sh  [web|ssl] [bright|carto] pbf_url</code>
 
 [web|ssl]: 'web' for http and 'ssl' for https.
 
@@ -43,11 +43,11 @@ Load Delaware data with openstreetmap-carto style and no SSL:
 
 Load Bulgaria data with openstreetmap-bright style and SSL:
 
-<code>./opentileserver.sh http://download.geofabrik.de/europe/bulgaria-latest.osm.pbf bright</code>
+<code>./opentileserver-ubuntu-xx.sh http://download.geofabrik.de/europe/bulgaria-latest.osm.pbf bright</code>
 
 Load South America data with openstreetmap-carto style and SSL:
 
-<code>./opentileserver.sh ssl carto http://download.geofabrik.de/south-america-latest.osm.pbf </code>
+<code>./opentileserver-ubuntu-xx.sh ssl carto http://download.geofabrik.de/south-america-latest.osm.pbf </code>
 
 
 ## Welcome Page
