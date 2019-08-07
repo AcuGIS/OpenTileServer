@@ -166,7 +166,7 @@ CMD_EOF
 
 function create_system_user(){
 	#3 Create system user
-	if [ $(grep -c ${OSM_USER} /etc/passwd) -eq 0 ]; then	#if we don't have the OSM user
+	if [ $(grep -wc ${OSM_USER} /etc/passwd) -eq 0 ]; then	#if we don't have the OSM user
 		useradd -m ${OSM_USER}
 		echo ${OSM_USER}:${OSM_USER_PASS} | chpasswd
 		echo "${OSM_USER} pass: ${OSM_USER_PASS}" >> /root/auth.txt
