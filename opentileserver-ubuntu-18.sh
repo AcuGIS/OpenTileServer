@@ -112,6 +112,8 @@ function style_osm_carto(){
 	fi
 	cd openstreetmap-carto-${CARTO_VER}/
 
+  sed -i.save 's|http://data\.openstreetmapdata\.com|https://osmdata\.openstreetmap\.de/download|' scripts/get-shapefiles.py
+
 	if [ $(find data/ -type f -name "*.shp" 2>/dev/null | wc -l) -ne 6 ]; then
 		./scripts/get-shapefiles.py
 		rm data/*.zip data/world_boundaries-spherical.tgz
