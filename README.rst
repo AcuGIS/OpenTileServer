@@ -27,7 +27,7 @@ Step 2: Make it executable::
 
     $ chmod 755 opentileserver-ubuntu-xx.sh
 
-Step 3 (for non-Latin alphabet):
+Step 3 (for non-Latin alphabet)
 
 If using a non-Latin alphabet, ucomment line 24 below if needed::
 
@@ -40,11 +40,13 @@ Step 4: Run the script
 Options
 -------
 
-    $ ./opentileserver-ubuntu-xx.sh  [web|ssl] [bright|carto] pbf_url::
+    $ ./opentileserver-ubuntu-xx.sh  [web|ssl] [bright|carto] pbf_url
+    
+    Where ::
 
-    [web|ssl]: 'web' for http and 'ssl' for https::
+    [web|ssl]: 'web' for http and 'ssl' for https
 
-    [bright|carto]: 'carto' for openstreetmap-carto or 'bright' for openstreetmap-bright::
+    [bright|carto]: 'carto' for openstreetmap-carto or 'bright' for openstreetmap-bright
 
     pbf_url: Complete PBF url from GeoFabrik (or other source)
 
