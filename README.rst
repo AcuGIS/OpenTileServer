@@ -42,9 +42,9 @@ Options
 
     $ ./opentileserver-ubuntu-xx.sh  [web|ssl] [bright|carto] pbf_url::
 
-    [web|ssl]: 'web' for http and 'ssl' for https.
+    [web|ssl]: 'web' for http and 'ssl' for https::
 
-    [bright|carto]: 'carto' for openstreetmap-carto or 'bright' for openstreetmap-bright
+    [bright|carto]: 'carto' for openstreetmap-carto or 'bright' for openstreetmap-bright::
 
     pbf_url: Complete PBF url from GeoFabrik (or other source)
 
