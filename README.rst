@@ -9,11 +9,14 @@ Only for use on a clean Ubuntu 14, Ubuntu 16, or Ubuntu 18 install!!
 Features
 --------
 
-- Install Tomcat
-- Install JDK
-- Stop, Start, and Restart Tomcat
-- Edit Main Config Files
-- Deploy WARS
+- Load OSM Data
+- Load OSM data (city, country, continent or planet).
+- Postgres, PostGIS, and osm2pgsql
+- Installs Postgres, PostGIS, and osm2pgsql.
+- Installs and configures Apache for http or https
+- Mapnik, mod_tile, and renderd
+- OSM-carto or OSM-bright
+- OpenLayer and Leaflet example page.
 
 Installation
 ------------
