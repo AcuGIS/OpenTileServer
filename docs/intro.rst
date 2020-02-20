@@ -15,28 +15,28 @@ Authors
 
 
 
-Credits
--------
+Components
+----------
 
-<a href="https://www.openstreetmap.org">OpenStreetMap Data</a>
+https://www.openstreetmap.org
 
-<a href="http://www.geofabrik.de/">GeoFabrik Extracts of OSM Data</a>
+http://www.geofabrik.de/
 
-<a href="http://mapnik.org/">Mapnik</a>
+http://mapnik.org/
 
-<a href="http://openlayers.org/">OpenLayers</a>
+http://openlayers.org/
 
-<a href="http://leafletjs.com/">Leafletjs</a>
+http://leafletjs.com
 
-<a href="http://www.postgresql.org/">PostgreSQL</a>
+http://www.postgresql.org/
 
-<a href="http://postgis.net/">PostGIS</a>
+http://postgis.net/
 
-<a href="https://github.com/gravitystorm/openstreetmap-carto">Gravity Storm - OSM Carto</a>
+https://github.com/gravitystorm/openstreetmap-carto
 
-<a href="https://github.com/mapbox/osm-bright">Mapbox OSM Bright Style</a>
+https://github.com/mapbox/osm-bright
 
-<a href="https://www.acugis.com/AcuGIS">AcuGIS</a>
+
 
 
     
