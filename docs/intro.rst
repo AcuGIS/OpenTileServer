@@ -1,13 +1,20 @@
-============
 Overview
-============
+------------
 
 This script is for building a basic tile server with OpenStreetMap data ::
 
 
-========
+Authors
+-------
+
+* David Ghedini
+* Kaloyan Petrov
+* Cited, Inc.
+
+
+
 Credits
-========
+-------
 
 OpenStreetMap Data
 
