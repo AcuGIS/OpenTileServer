@@ -35,14 +35,14 @@ If using a non-Latin alphabet, ucomment line 24 below if needed::
 
 See https://github.com/AcuGIS/opentileserver/issues/4
 
-Step 4: Run the script
+Step 4: Run the script::
+
+$ ./opentileserver-ubuntu-xx.sh  [web|ssl] [bright|carto] pbf_url
 
 Options
--------
-
-    $ ./opentileserver-ubuntu-xx.sh  [web|ssl] [bright|carto] pbf_url
+-------   
     
-Where::
+::
 
     [web|ssl]: 'web' for http and 'ssl' for https
     [bright|carto]: 'carto' for openstreetmap-carto or 'bright' for openstreetmap-bright
