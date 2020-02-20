@@ -12,34 +12,31 @@ Authors
 
 * David Ghedini
 * Kaloyan Petrov
-* Cited, Inc.
 
 
 
 Credits
 -------
 
-OpenStreetMap Data
+<a href="https://www.openstreetmap.org">OpenStreetMap Data</a>
 
-GeoFabrik Extracts of OSM Data
+<a href="http://www.geofabrik.de/">GeoFabrik Extracts of OSM Data</a>
 
-Mapnik
+<a href="http://mapnik.org/">Mapnik</a>
 
-OpenLayers
+<a href="http://openlayers.org/">OpenLayers</a>
 
-Leafletjs
+<a href="http://leafletjs.com/">Leafletjs</a>
 
-PostgreSQL
+<a href="http://www.postgresql.org/">PostgreSQL</a>
 
-PostGIS
+<a href="http://postgis.net/">PostGIS</a>
 
-Gravity Storm - OSM Carto
+<a href="https://github.com/gravitystorm/openstreetmap-carto">Gravity Storm - OSM Carto</a>
 
-Mapbox OSM Bright Style
+<a href="https://github.com/mapbox/osm-bright">Mapbox OSM Bright Style</a>
 
-David Ghedini
-
-AcuGIS
+<a href="https://www.acugis.com/AcuGIS">AcuGIS</a>
 
 
     
