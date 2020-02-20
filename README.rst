@@ -25,13 +25,13 @@ Step 1: Get opentileserver.sh script from GitHub
 
 Step 2: Make it executable:
 
-    chmod 755 opentileserver-ubuntu-xx.sh
+    $ chmod 755 opentileserver-ubuntu-xx.sh
 
 Step 3 (for non-Latin alphabet):
 
 If using a non-Latin alphabet, ucomment line 24 below if needed:
 
-    export LC_ALL=C
+    $ export LC_ALL=C
 
 See https://github.com/AcuGIS/opentileserver/issues/4
 
@@ -40,7 +40,7 @@ Step 4: Run the script
 Options
 -------
 
-    ./opentileserver-ubuntu-xx.sh  [web|ssl] [bright|carto] pbf_url
+    $ ./opentileserver-ubuntu-xx.sh  [web|ssl] [bright|carto] pbf_url
 
     [web|ssl]: 'web' for http and 'ssl' for https.
 
@@ -53,15 +53,15 @@ Examples
 
 Load Delaware data with openstreetmap-carto style and no SSL:
 
-    ./opentileserver.sh web carto http://download.geofabrik.de/north-america/us/delaware-latest.osm.pbf 
+    $ ./opentileserver.sh web carto http://download.geofabrik.de/north-america/us/delaware-latest.osm.pbf 
 
 Load Bulgaria data with openstreetmap-bright style and SSL:
     
-    ./opentileserver-ubuntu-xx.sh http://download.geofabrik.de/europe/bulgaria-latest.osm.pbf bright
+    $ ./opentileserver-ubuntu-xx.sh http://download.geofabrik.de/europe/bulgaria-latest.osm.pbf bright
 
 Load South America data with openstreetmap-carto style and SSL:
 
-    ./opentileserver-ubuntu-xx.sh ssl carto http://download.geofabrik.de/south-america-latest.osm.pbf
+    $ ./opentileserver-ubuntu-xx.sh ssl carto http://download.geofabrik.de/south-america-latest.osm.pbf
 
 Welcome Page
 ------------
