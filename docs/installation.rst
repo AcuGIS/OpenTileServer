@@ -1,7 +1,7 @@
 ============
-Installation
+Overview
 ============
 
-Install the package with pip::
+This script is for building a basic tile server with OpenStreetMap data ::
 
-    $ pip install read-the-docs-template
+    
