@@ -1,5 +1,7 @@
 # opentileserver
 
+[![Documentation Status](https://readthedocs.org/projects/opentileserver/badge/?version=latest)](https://opentileserver.readthedocs.io/en/latest/?badge=latest)
+
 This script is for building a basic tile server with OpenStreetMap data.
 
 Only for use on a clean Ubuntu 14, Ubuntu 16, or Ubuntu 18 install!!
