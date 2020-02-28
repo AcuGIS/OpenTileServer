@@ -70,7 +70,7 @@ Once installation completes, navigate to the IP or hostname of your server.
 
 You should see a page as below:
 
-.. image:: docs/welcome.jpg
+.. image:: https://github.com/AcuGIS/OpenTileServer/blob/master/docs/welcome.jpg
 
 
 Click on both the OpenLayer and Leaflet Examples and check your installation is rendering
