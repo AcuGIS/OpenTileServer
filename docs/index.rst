@@ -6,7 +6,7 @@
 OpenTileServer
 ==================================================
 
-.. image:: https://opentileserver.org/assets/img/logo.png
+.. image:: https://opentileserver.org/assets/img/ots.gif
 
 Contents:
 
