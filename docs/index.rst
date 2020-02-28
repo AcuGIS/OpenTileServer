@@ -6,6 +6,8 @@
 OpenTileServer
 ==================================================
 
+.. image:: https://opentileserver.org/assets/img/logo.png
+
 Contents:
 
 .. toctree::
