@@ -15,11 +15,8 @@ Contents:
    *
 
 
-
-Indices and tables
+AcuGIS
 ==================
+`AcuGIS <https://www.acugis.com>`_
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
+`Cited, Inc. <https://www.citedcorp.com>`_
