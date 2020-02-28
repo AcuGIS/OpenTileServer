@@ -70,7 +70,7 @@ Once installation completes, navigate to the IP or hostname of your server.
 
 You should see a page as below:
 
-![installation complete](http://opentileserver.org/assets/img/welcome.jpg)
+.. image:: docs/welcome.jpg
 
 
 Click on both the OpenLayer and Leaflet Examples and check your installation is rendering
