@@ -1,6 +1,6 @@
 Authors
 -------
 
-*  `David Ghedini https://github.com/DavidGhedini`_
-*  `Kaloyan Petrov https://github.com/kaloyan13`_
-*  `Cited, Inc. https://www.citedcorpc.com`_
+*  David Ghedini https://github.com/DavidGhedini_
+*  Kaloyan Petrov https://github.com/kaloyan13_
+*  Cited, Inc. https://www.citedcorpc.com_
