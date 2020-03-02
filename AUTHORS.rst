@@ -6,7 +6,7 @@ Authors
 *  Cited, Inc. https://www.citedcorpc.com_
 
 * 'David Ghedini'_ +
-* Kaloyan Petrov_
+* `Kaloyan Petrov`_
 
 .. _Bootstrap: https://getbootstrap.com/
-.. _Kal Petrov: https://jquery.com/
+.. _`Kaloyan Petrov`: https://jquery.com/
