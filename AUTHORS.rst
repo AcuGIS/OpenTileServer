@@ -1,12 +1,9 @@
 Authors
 -------
-
-*  ` https://github.com/DavidGhedini_
-*   https://github.com/kaloyan13_
-*  Cited, Inc. https://www.citedcorpc.com_
-
-* 'David Ghedini'_ +
+* `David Ghedini`_
 * `Kaloyan Petrov`_
+* `Cited, Inc`_
 
-.. _Bootstrap: https://getbootstrap.com/
-.. _`Kaloyan Petrov`: https://jquery.com/
+.. _`David Ghedini`: https://github.com/DavidGhedini
+.. _`Kaloyan Petrov`: https://github.com/kaloyan13
+.. _`Cited, Inc`: https://www.citedcorp.com
