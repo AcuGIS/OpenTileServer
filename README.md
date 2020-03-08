@@ -1,5 +1,8 @@
 # opentileserver
 
+* Project page: https://www.acugis.com/opentileserver
+* Documentation: https://opentileserver.docs.acugis.com/
+
 [![Documentation Status](https://readthedocs.org/projects/opentileserver/badge/?version=latest)](https://opentileserver.docs.acugis.com/en/latest/?badge=latest)
 
 This script is for building a basic tile server with OpenStreetMap data.
