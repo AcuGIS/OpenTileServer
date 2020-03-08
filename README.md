@@ -1,4 +1,4 @@
-# opentileserver
+# OpenTileServer
 
 * Project page: https://www.acugis.com/opentileserver
 * Documentation: https://opentileserver.docs.acugis.com/
