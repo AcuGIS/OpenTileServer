@@ -1,7 +1,7 @@
 # OpenTileServer
 
 * Project page: https://www.acugis.com/opentileserver
-* Documentation: https://opentileserver.docs.acugis.com/
+* Documentation: https://www.acugis.com/opentileserver/docs
 
 [![Documentation Status](https://readthedocs.org/projects/opentileserver/badge/?version=latest)](https://opentileserver.docs.acugis.com/en/latest/?badge=latest)
 
