@@ -95,7 +95,8 @@ function style_osm_bright(){
 }
 
 function install_npm_carto(){
-	apt-get -y install npm nodejs
+	curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+	apt-get -y install nodejs
 	npm install -g carto@1.0.1
 	ln -sf /usr/lib/nodejs/carto/bin/carto /usr/local/bin/carto
 }
