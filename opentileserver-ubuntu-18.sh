@@ -448,7 +448,8 @@ apt-get clean
 #needed for a lot of packages!
 apt install -y software-properties-common && add-apt-repository universe
 
-apt-get -y install	libboost-dev subversion git tar unzip wget bzip2 \
+apt-get -y install	libboost-dev libiniparser-dev subversion git tar unzip wget bzip2 \
+
 					build-essential autoconf libtool libxml2-dev libgeos-dev \
 					libgeos++-dev libpq-dev libbz2-dev libproj-dev munin-node \
 					munin libprotobuf-c-dev protobuf-c-compiler libfreetype6-dev \
