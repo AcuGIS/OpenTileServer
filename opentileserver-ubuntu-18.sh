@@ -457,8 +457,8 @@ apt-get -y install	libboost-dev libiniparser-dev subversion git tar unzip wget b
 					libpng-dev libtiff5-dev libicu-dev libgdal-dev libcairo2-dev \
 					libcairomm-1.0-dev apache2 apache2-dev libagg-dev \
 					ttf-unifont fonts-arphic-ukai fonts-arphic-uming fonts-thai-tlwg \
-					lua-rrd-dev lua-rrd libgeotiff2 node-carto \
-					postgresql postgresql-contrib postgis postgresql-10-postgis-2.4 \
+					lua-rrd-dev lua-rrd libgeotiff2 \
+					postgresql postgresql-contrib postgis postgresql-10-postgis-2.4 postgresql-10-postgis-scripts \
 					php libapache2-mod-php php7.2-xml
 
 PG_VER=$(pg_config | grep '^VERSION' | cut -f4 -d' ' | cut -f1,2 -d.)
