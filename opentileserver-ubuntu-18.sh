@@ -217,8 +217,8 @@ function install_modtile(){
 	git clone https://github.com/openstreetmap/mod_tile.git
 	if [ ! -d mod_tile ]; then "Error: Failed to download mod_tile"; exit 1; fi
 
-	git checkout tag/0.5
 	cd mod_tile
+	git checkout tags/0.5
 	./autogen.sh
 	./configure
 
