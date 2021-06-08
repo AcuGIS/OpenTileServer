@@ -88,15 +88,16 @@ function style_osm_bright(){
 		./make.py
 		cd ../OSMBright/
 
-		npm install -g carto@1.0.1
+		npm install -g underscore@1.13.1 mapnik-reference@8.10.0 carto@1.2.0 --force
 		carto project.mml > OSMBright.xml
 	fi
 	OSM_STYLE_XML='/usr/local/share/maps/style/OSMBright/OSMBright.xml'
 }
 
 function install_npm_carto(){
-	apt-get -y install npm nodejs
-	npm install -g carto@1.0.1
+	curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+	apt-get -y install nodejs
+	npm install -g underscore@1.13.1 mapnik-reference@8.10.0 carto@1.2.0 --force
 	ln -sf /usr/lib/nodejs/carto/bin/carto /usr/local/bin/carto
 }
 
@@ -119,7 +120,7 @@ function style_osm_carto(){
 		rm data/*.zip data/world_boundaries-spherical.tgz
 	fi
 
-	npm install -g carto@1.0.1
+	npm install -g underscore@1.13.1 mapnik-reference@8.10.0 carto@1.2.0 --force
 	carto project.mml >osm-carto.xml
 
 	osm2pgsql_OPTS+=" --style /usr/local/share/maps/style/openstreetmap-carto-${CARTO_VER}/openstreetmap-carto.style"
@@ -217,6 +218,7 @@ function install_modtile(){
 	if [ ! -d mod_tile ]; then "Error: Failed to download mod_tile"; exit 1; fi
 
 	cd mod_tile
+	git checkout tags/0.5
 	./autogen.sh
 	./configure
 
@@ -449,15 +451,14 @@ apt-get clean
 apt install -y software-properties-common && add-apt-repository universe
 
 apt-get -y install	libboost-dev libiniparser-dev subversion git tar unzip wget bzip2 \
-
 					build-essential autoconf libtool libxml2-dev libgeos-dev \
 					libgeos++-dev libpq-dev libbz2-dev libproj-dev munin-node \
 					munin libprotobuf-c-dev protobuf-c-compiler libfreetype6-dev \
 					libpng-dev libtiff5-dev libicu-dev libgdal-dev libcairo2-dev \
 					libcairomm-1.0-dev apache2 apache2-dev libagg-dev \
 					ttf-unifont fonts-arphic-ukai fonts-arphic-uming fonts-thai-tlwg \
-					lua-rrd-dev lua-rrd libgeotiff2 node-carto \
-					postgresql postgresql-contrib postgis postgresql-10-postgis-2.4 \
+					lua-rrd-dev lua-rrd libgeotiff2 \
+					postgresql postgresql-contrib postgis postgresql-10-postgis-2.4 postgresql-10-postgis-scripts \
 					php libapache2-mod-php php7.2-xml
 
 PG_VER=$(pg_config | grep '^VERSION' | cut -f4 -d' ' | cut -f1,2 -d.)
