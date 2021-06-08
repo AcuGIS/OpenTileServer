@@ -88,7 +88,7 @@ function style_osm_bright(){
 		./make.py
 		cd ../OSMBright/
 
-		npm install -g carto@1.0.1
+		npm install -g underscore@1.13.1 mapnik-reference@8.10.0 carto@1.2.0 --force
 		carto project.mml > OSMBright.xml
 	fi
 	OSM_STYLE_XML='/usr/local/share/maps/style/OSMBright/OSMBright.xml'
@@ -97,7 +97,7 @@ function style_osm_bright(){
 function install_npm_carto(){
 	curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
 	apt-get -y install nodejs
-	npm install -g carto@1.0.1
+	npm install -g underscore@1.13.1 mapnik-reference@8.10.0 carto@1.2.0 --force
 	ln -sf /usr/lib/nodejs/carto/bin/carto /usr/local/bin/carto
 }
 
@@ -120,7 +120,7 @@ function style_osm_carto(){
 		rm data/*.zip data/world_boundaries-spherical.tgz
 	fi
 
-	npm install -g carto@1.0.1
+	npm install -g underscore@1.13.1 mapnik-reference@8.10.0 carto@1.2.0 --force
 	carto project.mml >osm-carto.xml
 
 	osm2pgsql_OPTS+=" --style /usr/local/share/maps/style/openstreetmap-carto-${CARTO_VER}/openstreetmap-carto.style"
