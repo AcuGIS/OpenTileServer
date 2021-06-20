@@ -95,7 +95,7 @@ function style_osm_bright(){
 }
 
 function install_npm_carto(){
-	curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+	wget -q -O- https://deb.nodesource.com/setup_lts.x | sudo -E bash -
 	apt-get -y install nodejs
 	npm install -g underscore@1.13.1 mapnik-reference@8.10.0 carto@1.2.0 --force
 	ln -sf /usr/lib/nodejs/carto/bin/carto /usr/local/bin/carto
