@@ -7,8 +7,8 @@
 
 Installation Options
 
-## 1. (Script) https://github.com/AcuGIS/OpenTileServer/blob/master/README.md#1-script
-## 2. (Docker Compose) https://github.com/AcuGIS/OpenTileServer/blob/master/README.md#1-script
+## 1. [Script](https://github.com/AcuGIS/OpenTileServer/blob/master/README.md#1-script)
+## 2. [Docker Compose](https://github.com/AcuGIS/OpenTileServer/blob/master/README.md#2-docker-compose-httpsgithubcomacugisopentileserverblobmasterreadmemd1-script)
 
 This script is for building a basic tile server with OpenStreetMap data.
 
