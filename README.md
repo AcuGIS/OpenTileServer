@@ -75,7 +75,7 @@ Clone OpenTileServer and change to the OpenTileServer/Docker directoy:
     $ root@${CONTAINER_ID}:/home/tile# ./osm_load.sh 'https://download.geofabrik.de/europe/andorra-latest.osm.pbf'
     $ docker compose restart
     
-You can access PostgreSQL on localhost:5432 and Apache on localhost:8080
+You can access PostgreSQL on 5432 and Apache 80
 
 
 ## Welcome Page
