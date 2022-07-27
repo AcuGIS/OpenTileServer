@@ -7,9 +7,7 @@
 
 This script is for building a basic tile server with OpenStreetMap data.
 
-Only for use on a clean Ubuntu 14, Ubuntu 16, Ubuntu 18, or Ubuntu 20 install!!
-
-NOTE: Ubuntu 14 uses osm2pgsql 0.82 and Ubuntu 16 uses osm2pgsql 0.88. The versions handle --slim differently. Currently the reload script for Ubuntu 16 does NOT work to add additional PBFs. It can be used to drop existing data and reload new data, but not to append data.
+Use only on a clean Ubuntu 18 or Ubuntu 20 install.
 
 Before proceeding, see [opentileserver.org](https://opentileserver.org) for limitations, etc..
 
