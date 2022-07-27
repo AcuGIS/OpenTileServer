@@ -75,7 +75,7 @@ Clone OpenTileServer and change to the OpenTileServer/Docker directoy:
     
 ### Add PBF File
 
-    $ docker images (to get container id)
+    $ docker ps (to get container id)
     $ docker exec -it ${CONTAINER_ID} bash
     $ root@${CONTAINER_ID}:/home/tile# ./osm_load.sh 'https://download.geofabrik.de/europe/andorra-latest.osm.pbf'
     $ docker compose restart
