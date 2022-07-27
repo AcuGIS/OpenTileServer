@@ -65,8 +65,8 @@ Clone OpenTileServer and change to the OpenTileServer/Docker directoy:
 
     git clone https://github.com/AcuGIS/OpenTileServer.git
     cd OpenTileServer/Docker
-    docker-compose build
-    docker-compose up -d
+    docker compose build
+    docker compose up -d
     
 # Add PBF File
 
