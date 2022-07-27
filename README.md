@@ -36,7 +36,7 @@ Step 4: Run the script
 
 ### Script usage:
 
- ./opentileserver-ubuntu-xx.sh  [web|ssl] [bright|carto] pbf_url
+    ./opentileserver-ubuntu-xx.sh  [web|ssl] [bright|carto] pbf_url
 
 [web|ssl]: 'web' for http and 'ssl' for https.
 
@@ -49,15 +49,15 @@ pbf_url: Complete PBF url from GeoFabrik (or other source)
 
 Load Delaware data with openstreetmap-carto style and no SSL:
 
-./opentileserver.sh web carto http://download.geofabrik.de/north-america/us/delaware-latest.osm.pbf 
+    ./opentileserver.sh web carto http://download.geofabrik.de/north-america/us/delaware-latest.osm.pbf 
 
 Load Bulgaria data with openstreetmap-bright style and SSL:
 
-./opentileserver-ubuntu-xx.sh http://download.geofabrik.de/europe/bulgaria-latest.osm.pbf bright
+    ./opentileserver-ubuntu-xx.sh http://download.geofabrik.de/europe/bulgaria-latest.osm.pbf bright
 
 Load South America data with openstreetmap-carto style and SSL:
 
-./opentileserver-ubuntu-xx.sh ssl carto http://download.geofabrik.de/south-america-latest.osm.pbf
+    ./opentileserver-ubuntu-xx.sh ssl carto http://download.geofabrik.de/south-america-latest.osm.pbf
 
 ## 2. Install Using Docker Compose
 
