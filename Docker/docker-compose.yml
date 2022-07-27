@@ -1,10 +1,8 @@
 version: '3'
- 
+
 services:
   pg:
-    build:
-      context: pg
-    image: opentileserver/pg:1
+    image: acugis/pg:latest
     env_file:
       - .env
     volumes:
@@ -18,18 +16,11 @@ services:
       interval: 60s
       retries: 2
       timeout: 10s
- 
+
   tile:
-    build:
-      context: tile
-      args:
-        - POSTGRES_DB=${POSTGRES_DB}
-        - POSTGRES_USER=${POSTGRES_USER}
-        - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-        - PBF_URL=${PBF_URL}
     env_file:
       - .env
-    image: opentileserver/tile:1
+    image: acugis/opentileserver:latest
     volumes:
       - ./vol/tiles:/var/cache/renderd/tiles
     ports:
