@@ -60,20 +60,20 @@ Dockerized OpenTileServer
 
 First build the containers, then start PostgreSQL, renderd, and Apache. 
 
-# Install
+# Run
 Clone OpenTileServer and change to the OpenTileServer/Docker directoy:
 
     git clone https://github.com/AcuGIS/OpenTileServer.git
     cd OpenTileServer/Docker
-    docker compose build
-    docker compose up -d
+    docker compose pull
+    docker compose up
     
 # Add PBF File
 
     $ docker images (to get container id)
     $ docker exec -it ${CONTAINER_ID} bash
     $ root@${CONTAINER_ID}:/home/tile# ./osm_load.sh 'https://download.geofabrik.de/europe/andorra-latest.osm.pbf'
-    $ docker-compose restart tile
+    $ docker compose restart
     
 You can access PostgreSQL on localhost:5432 and Apache on localhost:8080
 
