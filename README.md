@@ -12,7 +12,7 @@ Installation Options
 
 This script is for building a basic tile server with OpenStreetMap data.
 
-# 1.  Install Using Script
+## 1.  Install Using Script
 
 Use only on a clean Ubuntu 18 or Ubuntu 20 install.
 
@@ -34,7 +34,7 @@ Step 3 (for non-Latin alphabet):
 
 Step 4: Run the script
 
-## Script usage:
+### Script usage:
 
  <code>./opentileserver-ubuntu-xx.sh  [web|ssl] [bright|carto] pbf_url</code>
 
@@ -45,7 +45,7 @@ Step 4: Run the script
 pbf_url: Complete PBF url from GeoFabrik (or other source)
 
 
-## Examples:
+### Examples:
 
 Load Delaware data with openstreetmap-carto style and no SSL:
 
@@ -59,13 +59,13 @@ Load South America data with openstreetmap-carto style and SSL:
 
 <code>./opentileserver-ubuntu-xx.sh ssl carto http://download.geofabrik.de/south-america-latest.osm.pbf </code>
 
-# 2. Install Using Docker Compose
+## 2. Install Using Docker Compose
 
 Dockerized OpenTileServer
 
 First build the containers, then start PostgreSQL, renderd, and Apache. 
 
-# Run
+### Run
 Clone OpenTileServer and change to the OpenTileServer/Docker directoy:
 
     git clone https://github.com/AcuGIS/OpenTileServer.git
@@ -73,7 +73,7 @@ Clone OpenTileServer and change to the OpenTileServer/Docker directoy:
     docker compose pull
     docker compose up
     
-# Add PBF File
+### Add PBF File
 
     $ docker images (to get container id)
     $ docker exec -it ${CONTAINER_ID} bash
