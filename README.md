@@ -5,31 +5,38 @@
 
 [![Documentation Status](https://readthedocs.org/projects/opentileserver/badge/?version=latest)](https://opentileserver.docs.acugis.com/en/latest/?badge=latest)
 
+Installation Options
+
+## 1. Script
+## 2. Docker Compose
+
 This script is for building a basic tile server with OpenStreetMap data.
+
+# 1.  Install Using Script
 
 Use only on a clean Ubuntu 18 or Ubuntu 20 install.
 
 Before proceeding, see [opentileserver.org](https://opentileserver.org) for limitations, etc..
 
-Step 1: Get opentileserver.sh script from GitHub
+    Step 1: Get opentileserver.sh script from GitHub
 
-Step 2: Make it executable:
+    Step 2: Make it executable:
 
-<code>chmod 755 opentileserver-ubuntu-xx.sh</code>
+    <code>chmod 755 opentileserver-ubuntu-xx.sh</code>
 
 Step 3 (for non-Latin alphabet):
 
-If using a non-Latin alphabet, ucomment line 24 below if needed:
+    If using a non-Latin alphabet, ucomment line 24 below if needed:
 
-<code>export LC_ALL=C</code>
+    <code>export LC_ALL=C</code>
 
-See https://github.com/AcuGIS/opentileserver/issues/4
+    See https://github.com/AcuGIS/opentileserver/issues/4
 
 Step 4: Run the script
 
 ## Script usage:
 
-<code>./opentileserver-ubuntu-xx.sh  [web|ssl] [bright|carto] pbf_url</code>
+ <code>./opentileserver-ubuntu-xx.sh  [web|ssl] [bright|carto] pbf_url</code>
 
 [web|ssl]: 'web' for http and 'ssl' for https.
 
@@ -52,7 +59,7 @@ Load South America data with openstreetmap-carto style and SSL:
 
 <code>./opentileserver-ubuntu-xx.sh ssl carto http://download.geofabrik.de/south-america-latest.osm.pbf </code>
 
-# Docker
+# 2. Install Using Docker Compose
 
 Dockerized OpenTileServer
 
