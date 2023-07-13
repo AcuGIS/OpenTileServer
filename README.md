@@ -14,29 +14,23 @@ This script is for building a basic tile server with OpenStreetMap data.
 
 ## 1.  Install Using Script
 
-Use only on a clean Ubuntu 18 or Ubuntu 20 install.
+For demos to work, be sure your hostname is set properly.
 
-Before proceeding, see [opentileserver.org](https://opentileserver.org) for limitations, etc..
+On a clean Ubuntu 20 install.
 
-    Step 1: Get opentileserver.sh script from GitHub
+1. Get the script and make it executable
 
-    Step 2: Make it executable:
+    wget https://raw.githubusercontent.com/AcuGIS/OpenTileServer/master/opentileserver-ubuntu-20.sh && chmod +x opentileserver-ubuntu-20.sh
 
-   chmod 755 opentileserver-ubuntu-xx.sh
+2. If using a non-Latin alphabet, ucomment line 24 below:
 
-Step 3 (for non-Latin alphabet):
+    export LC_ALL=C      
 
-    If using a non-Latin alphabet, ucomment line 24 below if needed:
+3.  Run the script
 
-    export LC_ALL=C
+### Running the script:
 
-    See https://github.com/AcuGIS/opentileserver/issues/4
-
-Step 4: Run the script
-
-### Script usage:
-
-    ./opentileserver-ubuntu-xx.sh  [web|ssl] [bright|carto] pbf_url
+    ./opentileserver-ubuntu-20.sh  [web|ssl] [bright|carto] pbf_url
 
 [web|ssl]: 'web' for http and 'ssl' for https.
 
@@ -49,15 +43,15 @@ pbf_url: Complete PBF url from GeoFabrik (or other source)
 
 Load Delaware data with openstreetmap-carto style and no SSL:
 
-    ./opentileserver.sh web carto http://download.geofabrik.de/north-america/us/delaware-latest.osm.pbf 
+    ./opentileserver-ubuntu-20.sh web carto http://download.geofabrik.de/north-america/us/delaware-latest.osm.pbf 
 
 Load Bulgaria data with openstreetmap-bright style and SSL:
 
-    ./opentileserver-ubuntu-xx.sh http://download.geofabrik.de/europe/bulgaria-latest.osm.pbf bright
+    ./opentileserver-ubuntu-20.sh http://download.geofabrik.de/europe/bulgaria-latest.osm.pbf bright
 
 Load South America data with openstreetmap-carto style and SSL:
 
-    ./opentileserver-ubuntu-xx.sh ssl carto http://download.geofabrik.de/south-america-latest.osm.pbf
+    ./opentileserver-ubuntu-20.sh ssl carto http://download.geofabrik.de/south-america-latest.osm.pbf
 
 ## 2. Install Using Docker Compose
 
