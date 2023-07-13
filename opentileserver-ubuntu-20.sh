@@ -299,10 +299,10 @@ function configure_webpages(){
 
 	rm -f /var/www/html/index.html
  	wget --quiet -P/tmp https://github.com/AcuGIS/OpenTileServer/archive/refs/heads/master.zip
-	unzip /tmp/main.zip -d/tmp
+	unzip /tmp/master.zip -d/tmp
 
-	cp -r /tmp/OpenTileServer-main/app/* /var/www/html/
-	rm -rf /tmp/main.zip
+	cp -r /tmp/OpenTileServer-master/app/* /var/www/html/
+	rm -rf /tmp/master.zip
         sed -i.save "s|localhost|$(hostname -I | tr -d ' ')|" /var/www/html/leaflet-example.html
 
 
