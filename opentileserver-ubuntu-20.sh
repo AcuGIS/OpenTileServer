@@ -17,6 +17,7 @@ OSM_USER_PASS=$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c32)
 OSM_PG_PASS=$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c32);
 OSM_DB='gis';				#osm database name
 VHOST=$(hostname -f)
+HNAME=$(hostname | sed -n 1p | cut -f1 -d' ' | tr -d '\n')
 
 NP=$(grep -c 'model name' /proc/cpuinfo)
 osm2pgsql_OPTS="--slim -d ${OSM_DB} --number-processes ${NP} --hstore"
@@ -303,18 +304,11 @@ function configure_webpages(){
 
 	cp -r /tmp/OpenTileServer-master/app/* /var/www/html/
 	rm -rf /tmp/master.zip
-        sed -i.save "s|localhost|$(hostname -I | tr -d ' ')|" /var/www/html/leaflet-example.html
+        sed -i.save "s/localhost/${HNAME}/" /var/www/html/leaflet-example.html
+ 
 
-
-	#Download html pages
-	
-	#for p in openlayers-example leaflet-example index; do
-	#	wget --no-check-certificate -P/var/www/html/ https://cdn.acugis.com/osm-assets/htmls/${p}.html
-	#done
 
 	
-
-
 	#Set Leaflet point of view
 	LOC_NAME=$(echo ${PBF_URL##*/} | sed 's/\(.*\)-latest.*/\1/')
 	cat >/tmp/latlong.php <<EOF
