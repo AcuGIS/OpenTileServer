@@ -18,7 +18,7 @@ For demos to work, be sure your hostname is set properly.
 
 On a clean Ubuntu 20 install.
 
-1. Get the script and make it executable
+1. Get the script and make it executable:
 
     wget https://raw.githubusercontent.com/AcuGIS/OpenTileServer/master/opentileserver-ubuntu-20.sh && chmod +x opentileserver-ubuntu-20.sh
 
