@@ -296,13 +296,23 @@ function configure_webserver(){
 }
 
 function configure_webpages(){
-	#Download html pages
-	rm -f /var/www/html/index.html
-	for p in openlayers-example leaflet-example index; do
-		wget --no-check-certificate -P/var/www/html/ https://cdn.acugis.com/osm-assets/htmls/${p}.html
-	done
 
-	sed -i.save "s|localhost|$(hostname -I | tr -d ' ')|" /var/www/html/leaflet-example.html
+	rm -f /var/www/html/index.html
+ 	wget --quiet -P/tmp https://github.com/AcuGIS/OpenTileServer/archive/refs/heads/master.zip
+	unzip /tmp/master.zip -d/tmp
+
+	cp -r /tmp/OpenTileServer-master/app/* /var/www/html/
+	rm -rf /tmp/master.zip
+        sed -i.save "s|localhost|$(hostname -I | tr -d ' ')|" /var/www/html/leaflet-example.html
+
+
+	#Download html pages
+	
+	#for p in openlayers-example leaflet-example index; do
+	#	wget --no-check-certificate -P/var/www/html/ https://cdn.acugis.com/osm-assets/htmls/${p}.html
+	#done
+
+	
 
 
 	#Set Leaflet point of view
