@@ -62,9 +62,11 @@ COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 RUN a2enconf renderd && a2ensite 000-default
 
 # Configure webpages
-ADD https://cdn.acugis.com/osm-assets/htmls/openlayers-example.html /var/www/html/openlayers-example.html
-ADD https://cdn.acugis.com/osm-assets/htmls/leaflet-example.html 		/var/www/html/leaflet-example.html
-ADD https://cdn.acugis.com/osm-assets/htmls/index.html 							/var/www/html/index.html
+ADD https://github.com/AcuGIS/OpenTileServer/archive/refs/heads/master.zip /tmp/master.zip
+RUN unzip /tmp/master.zip && \
+	mv /tmp/OpenTileServer-master/app/* /var/www/html/ && \
+	rm -rf /tmp/master.zip && /tmp/OpenTileServer-master
+	
 COPY latlong.py /tmp/latlong.py
 RUN LOC_NAME=$(echo ${##*/} | sed 's/\(.*\)-latest.*/\1/') \
 	&& sed -i.save "s|localhost|$(hostname -I | tr -d ' ')|" /var/www/html/leaflet-example.html \
