@@ -1,5 +1,8 @@
 # OpenTileServer
 
+![OpenTileServer](docs/OpenTileServer-WelcomeApp.png)
+
+
 * Project page: https://www.acugis.com/opentileserver
 * Documentation: https://www.acugis.com/opentileserver/docs
 

@@ -6,7 +6,8 @@
 OpenTileServer
 ==================================================
 
-.. image:: https://opentileserver.org/assets/img/ots.gif
+
+.. image:: OpenTileServer-WelcomeApp.png
 
 Contents:
 

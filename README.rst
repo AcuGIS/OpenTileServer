@@ -25,7 +25,7 @@ Step 1: Get opentileserver.sh script from GitHub
 
 Step 2: Make it executable::
 
-    $ chmod 755 opentileserver-ubuntu-xx.sh
+    $ chmod 755 opentileserver-ubuntu-20.sh
 
 Step 3 (for non-Latin alphabet)
 
@@ -37,7 +37,7 @@ See https://github.com/AcuGIS/opentileserver/issues/4
 
 Step 4: Run the script::
 
-$ ./opentileserver-ubuntu-xx.sh  [web|ssl] [bright|carto] pbf_url
+$ ./opentileserver-ubuntu-20.sh  [web|ssl] [bright|carto] pbf_url
 
 Options
 -------   
@@ -53,15 +53,15 @@ Examples
 
 Load Delaware data with openstreetmap-carto style and no SSL::
 
-    $ ./opentileserver.sh web carto http://download.geofabrik.de/north-america/us/delaware-latest.osm.pbf 
+    $ ./opentileserver-ubuntu-20.sh web carto http://download.geofabrik.de/north-america/us/delaware-latest.osm.pbf 
 
 Load Bulgaria data with openstreetmap-bright style and SSL::
     
-    $ ./opentileserver-ubuntu-xx.sh http://download.geofabrik.de/europe/bulgaria-latest.osm.pbf bright
+    $ ./opentileserver-ubuntu-20.sh http://download.geofabrik.de/europe/bulgaria-latest.osm.pbf bright
 
 Load South America data with openstreetmap-carto style and SSL::
 
-    $ ./opentileserver-ubuntu-xx.sh ssl carto http://download.geofabrik.de/south-america-latest.osm.pbf
+    $ ./opentileserver-ubuntu-20.sh ssl carto http://download.geofabrik.de/south-america-latest.osm.pbf
 
 Welcome Page
 ------------
@@ -70,7 +70,7 @@ Once installation completes, navigate to the IP or hostname of your server.
 
 You should see a page as below:
 
-.. image:: https://opentileserver.org/assets/img/welcome.jpg
+.. image:: docs/OpenTileServer-WelcomeApp.png
 
 
 Click on both the OpenLayer and Leaflet Examples and check your installation is rendering
