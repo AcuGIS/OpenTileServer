@@ -1,0 +1,388 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<!-- Mirrored from opentileserver.docs.acugis.com/en/latest/installation.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 15 Jul 2023 23:52:54 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Installation and Usage &mdash; OpenTileServer 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="../../_/static/javascript/readthedocs-doc-embed.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Intro" href="intro.html" /> 
+
+<!-- RTD Extra Head -->
+
+<link rel="stylesheet" href="../../_/static/css/readthedocs-doc-embed.css" type="text/css" />
+
+<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": false, "api_host": "https://readthedocs.org", "builder": "sphinx", "canonical_url": null, "docroot": "/docs/", "features": {"docsearch_disabled": false}, "global_analytics_code": "UA-17997319-1", "language": "en", "page": "installation", "programming_language": "words", "project": "opentileserver", "proxied_api_host": "/_", "source_suffix": ".rst", "subprojects": {}, "theme": "sphinx_rtd_theme", "user_analytics_code": "", "version": "latest"}</script>
+
+<!--
+Using this variable directly instead of using `JSON.parse` is deprecated.
+The READTHEDOCS_DATA global variable will be removed in the future.
+-->
+<script type="text/javascript">
+READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
+</script>
+
+<script type="text/javascript" src="../../_/static/javascript/readthedocs-analytics.js" async="async"></script>
+
+<!-- end RTD <extrahead> -->
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index-2.html" class="icon icon-home"> OpenTileServer
+          
+
+          
+          </a>
+
+          
+            
+            
+            
+              <div class="version">
+                latest
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://opentileserver.docs.acugis.com/en/latest/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Intro</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation and Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#options">Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-ssl">Using SSL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#welcome-page">Welcome Page</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contribute">Contribute</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#support">Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#license">License</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index-2.html">OpenTileServer</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index-2.html">Docs</a> &raquo;</li>
+        
+      <li>Installation and Usage</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/AcuGIS/OpenTileServer/blob/master/docs/installation.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="installation-and-usage">
+<h1>Installation and Usage<a class="headerlink" href="#installation-and-usage" title="Permalink to this headline">¶</a></h1>
+<p>This script is for building a basic tile server with OpenStreetMap data.</p>
+<p>For us only on a clean Ubuntu 20 install.</p>
+<p>Be sure to review the “Using SSL” section below if you plan to enable SSL.</p>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>Step 1: Get opentileserver.sh script from GitHub:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="o">.</span><span class="n">githubusercontent</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">AcuGIS</span><span class="o">/</span><span class="n">OpenTileServer</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">opentileserver</span><span class="o">-</span><span class="n">ubuntu</span><span class="o">-</span><span class="mf">20.</span><span class="n">sh</span>
+</pre></div>
+</div>
+<p>Step 2: Make it executable:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ chmod 755 opentileserver-ubuntu-20.sh
+</pre></div>
+</div>
+<p>Step 3 (for non-Latin alphabet)</p>
+<p>If using a non-Latin alphabet, ucomment line 24 below if needed:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ export LC_ALL=C
+</pre></div>
+</div>
+<p>Step 4: Run the script:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./opentileserver-ubuntu-20.sh  [web|ssl] [bright|carto] pbf_url
+</pre></div>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">web</span><span class="o">|</span><span class="n">ssl</span><span class="p">]:</span> <span class="s1">&#39;web&#39;</span> <span class="k">for</span> <span class="n">http</span> <span class="ow">and</span> <span class="s1">&#39;ssl&#39;</span> <span class="k">for</span> <span class="n">https</span>
+<span class="p">[</span><span class="n">bright</span><span class="o">|</span><span class="n">carto</span><span class="p">]:</span> <span class="s1">&#39;carto&#39;</span> <span class="k">for</span> <span class="n">openstreetmap</span><span class="o">-</span><span class="n">carto</span> <span class="ow">or</span> <span class="s1">&#39;bright&#39;</span> <span class="k">for</span> <span class="n">openstreetmap</span><span class="o">-</span><span class="n">bright</span>
+<span class="n">pbf_url</span><span class="p">:</span> <span class="n">Complete</span> <span class="n">PBF</span> <span class="n">url</span> <span class="kn">from</span> <span class="nn">GeoFabrik</span> <span class="p">(</span><span class="ow">or</span> <span class="n">other</span> <span class="n">source</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>Load Delaware data with openstreetmap-carto style and no SSL:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./opentileserver-ubuntu-20.sh web carto http://download.geofabrik.de/north-america/us/delaware-latest.osm.pbf
+</pre></div>
+</div>
+<p>Load Bulgaria data with openstreetmap-bright style and SSL:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./opentileserver-ubuntu-20.sh http://download.geofabrik.de/europe/bulgaria-latest.osm.pbf bright
+</pre></div>
+</div>
+<p>Load South America data with openstreetmap-carto style and SSL:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./opentileserver-ubuntu-20.sh ssl carto http://download.geofabrik.de/south-america-latest.osm.pbf
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-ssl">
+<h2>Using SSL<a class="headerlink" href="#using-ssl" title="Permalink to this headline">¶</a></h2>
+<p>If you select the ssl option and wish to use LetsEncrypt, be sure to do the following:</p>
+<ol class="arabic">
+<li><p class="first">Check hostname is set properly.  You can set the hostname using hostnamectl as below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hostnamectl</span> <span class="nb">set</span><span class="o">-</span><span class="n">hostname</span> <span class="n">domain</span><span class="o">.</span><span class="n">com</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Run the script, which will provision a dummy SSL certificate.</p>
+</li>
+<li><p class="first">Once script completes, enable Python Certbot Apache plugin:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="o">-</span><span class="n">y</span> <span class="n">install</span> <span class="n">python3</span><span class="o">-</span><span class="n">certbot</span><span class="o">-</span><span class="n">apache</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Request a certificate using below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">certbot</span> <span class="o">--</span><span class="n">apache</span> <span class="o">--</span><span class="n">agree</span><span class="o">-</span><span class="n">tos</span> <span class="o">--</span><span class="n">email</span> <span class="n">hostmaster</span><span class="nd">@domain</span><span class="o">.</span><span class="n">com</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">eff</span><span class="o">-</span><span class="n">email</span> <span class="o">-</span><span class="n">d</span> <span class="n">domain</span><span class="o">.</span><span class="n">com</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">select the option “2: Redirect - Make all requests redirect to secure HTTPS access”:</p>
+</li>
+<li><p class="first">Restart Apache</p>
+</li>
+</ol>
+</div>
+<div class="section" id="welcome-page">
+<h2>Welcome Page<a class="headerlink" href="#welcome-page" title="Permalink to this headline">¶</a></h2>
+<p>Once installation completes, navigate to the IP or hostname of your server.</p>
+<p>You should see a page as below:</p>
+<img alt="_images/OpenTileServer-WelcomeApp.png" src="_images/OpenTileServer-WelcomeApp.png" />
+<p>Click on both the OpenLayer and Leaflet Examples and check your installation is rendering</p>
+<p>Note: Zoom is automatically set on the leaflet demo application.  On the OpenLayers demo application you will need to zoom to the area.</p>
+<p>Produced by AcuGIS</p>
+<p><a class="reference external" href="https://www.acugis.com/opentileserver">https://www.acugis.com/opentileserver</a></p>
+<p>Cited, Inc.</p>
+<p>Wilmington, Delaware</p>
+<p><a class="reference external" href="https://citedcorp.com/">https://citedcorp.com</a></p>
+</div>
+<div class="section" id="contribute">
+<h2>Contribute<a class="headerlink" href="#contribute" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Issue Tracker: github.com/AcuGIS/OpenTileServer/issues</li>
+<li>Source Code: github.com/AcuGIS/OpenTileServer</li>
+</ul>
+</div>
+<div class="section" id="support">
+<h2>Support<a class="headerlink" href="#support" title="Permalink to this headline">¶</a></h2>
+<p>If you are having issues, please let us know.
+We have a mailing list located at: <a class="reference external" href="mailto:project&#37;&#52;&#48;google-groups&#46;com">project<span>&#64;</span>google-groups<span>&#46;</span>com</a></p>
+</div>
+<div class="section" id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
+<p>The project is licensed under the BSD license.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="intro.html" class="btn btn-neutral float-left" title="Intro" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Cited, Inc.
+      
+        <span class="commit">
+          Revision <code>47786cde</code>.
+        </span>
+      
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: latest
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          <dd><a href="index.html">latest</a></dd>
+        
+          <dd><a href="../stable/index.html">stable</a></dd>
+        
+      </dl>
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="http://opentileserver.docs.acugis.com/_/downloads/en/latest/pdf/">pdf</a></dd>
+        
+          <dd><a href="http://opentileserver.docs.acugis.com/_/downloads/en/latest/htmlzip/">html</a></dd>
+        
+          <dd><a href="http://opentileserver.docs.acugis.com/_/downloads/en/latest/epub/">epub</a></dd>
+        
+      </dl>
+      <dl>
+        <dt>On Read the Docs</dt>
+          <dd>
+            <a href="http://readthedocs.org/projects/opentileserver/?fromdocs=opentileserver">Project Home</a>
+          </dd>
+          <dd>
+            <a href="http://readthedocs.org/builds/opentileserver/?fromdocs=opentileserver">Builds</a>
+          </dd>
+      </dl>
+      <hr/>
+      Free document hosting provided by <a href="http://www.readthedocs.org/">Read the Docs</a>.
+
+    </div>
+  </div>
+
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+   
+
+</body>
+
+<!-- Mirrored from opentileserver.docs.acugis.com/en/latest/installation.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 15 Jul 2023 23:52:54 GMT -->
+</html>
