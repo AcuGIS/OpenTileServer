@@ -65,6 +65,32 @@ Load South America data with openstreetmap-carto style and SSL::
 
     $ ./opentileserver-ubuntu-20.sh ssl carto http://download.geofabrik.de/south-america-latest.osm.pbf
 
+
+Using SSL
+-----------------
+
+If you select the ssl option and wish to use LetsEncrypt, be sure to do the following:
+
+1.  Check hostname is set properly.  You can set the hostname using hostnamectl as below:
+
+       hostnamectl set-hostname domain.com
+
+2.  Run the script, which will provision a dummy SSL certificate.
+
+3.  Once script completes, enable Python Certbot Apache plugin:
+
+       apt-get -y install python3-certbot-apache
+
+4.  Request a certificate using below and 
+
+       certbot --apache --agree-tos --email hostmaster@domain.com --no-eff-email -d domain.com
+
+5. select the option "2: Redirect - Make all requests redirect to secure HTTPS access"
+   
+6. Restart Apache
+
+
+
 Welcome Page
 ------------
 
