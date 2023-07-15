@@ -9,11 +9,13 @@ OpenTileServer
 
 .. image:: OpenTileServer-WelcomeApp.png
 
-Contents:
-
 .. toctree::
+   :caption: Getting Started
    :maxdepth: 2
-   :glob:
+
+   intro
+   installation
+
 
    *
 

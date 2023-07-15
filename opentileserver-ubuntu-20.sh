@@ -345,7 +345,7 @@ EOF
 				echo "ssl pass: ${SSL_PASS}" >> /root/auth.txt
 			fi
 			cd /etc/apache2/ssl/
-			openssl genrsa -des3 -passout pass:${SSL_PASS} -out server.key 1024
+			openssl genrsa -des3 -passout pass:${SSL_PASS} -out server.key 2048
 			openssl rsa -in server.key -passin pass:${SSL_PASS} -out server.key
 
 			chmod 400 server.key
