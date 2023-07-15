@@ -3,25 +3,13 @@ Installation and Usage
 
 This script is for building a basic tile server with OpenStreetMap data.
 
-Only for use on a clean Ubuntu 14, Ubuntu 16, or Ubuntu 18 install!!
+Only for use on a clean Ubuntu 20 install!
 
-
-Features
---------
-
-- Load OSM Data
-- Load OSM data (city, country, continent or planet).
-- Postgres, PostGIS, and osm2pgsql
-- Installs Postgres, PostGIS, and osm2pgsql.
-- Installs and configures Apache for http or https
-- Mapnik, mod_tile, and renderd
-- OSM-carto or OSM-bright
-- OpenLayer and Leaflet example page.
 
 Installation
 ------------
 
-Step 1: Get opentileserver.sh script from GitHub
+Step 1: Get opentileserver.sh script from GitHub::
 
     wget https://raw.githubusercontent.com/AcuGIS/OpenTileServer/master/opentileserver-ubuntu-20.sh
 
@@ -34,8 +22,6 @@ Step 3 (for non-Latin alphabet)
 If using a non-Latin alphabet, ucomment line 24 below if needed::
 
     $ export LC_ALL=C
-
-See https://github.com/AcuGIS/opentileserver/issues/4
 
 Step 4: Run the script::
 
@@ -71,21 +57,21 @@ Using SSL
 
 If you select the ssl option and wish to use LetsEncrypt, be sure to do the following:
 
-1.  Check hostname is set properly.  You can set the hostname using hostnamectl as below:
+1.  Check hostname is set properly.  You can set the hostname using hostnamectl as below::
 
        hostnamectl set-hostname domain.com
 
 2.  Run the script, which will provision a dummy SSL certificate.
 
-3.  Once script completes, enable Python Certbot Apache plugin:
+3.  Once script completes, enable Python Certbot Apache plugin::
 
        apt-get -y install python3-certbot-apache
 
-4.  Request a certificate using below and 
+4.  Request a certificate using below::
 
        certbot --apache --agree-tos --email hostmaster@domain.com --no-eff-email -d domain.com
 
-5. select the option "2: Redirect - Make all requests redirect to secure HTTPS access"
+5. select the option "2: Redirect - Make all requests redirect to secure HTTPS access"::
    
 6. Restart Apache
 
