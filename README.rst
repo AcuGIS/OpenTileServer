@@ -23,6 +23,8 @@ Installation
 
 Step 1: Get opentileserver.sh script from GitHub
 
+    wget https://raw.githubusercontent.com/AcuGIS/OpenTileServer/master/opentileserver-ubuntu-20.sh
+
 Step 2: Make it executable::
 
     $ chmod 755 opentileserver-ubuntu-20.sh
