@@ -3,8 +3,9 @@ Installation and Usage
 
 This script is for building a basic tile server with OpenStreetMap data.
 
-Only for use on a clean Ubuntu 20 install!
+For us only on a clean Ubuntu 20 install.
 
+Be sure to review the "Using SSL" section below if you plan to enable SSL.
 
 Installation
 ------------
@@ -92,9 +93,15 @@ Click on both the OpenLayer and Leaflet Examples and check your installation is 
 Note: Zoom is automatically set on the leaflet demo application.  On the OpenLayers demo application you will need to zoom to the area.
 
 
-[Produced by AcuGIS. We Make GIS Simple](https://www.acugis.com) 
+Produced by AcuGIS 
 
-[Cited, Inc. Wilmington, Delaware](https://citedcorp.com)
+https://www.acugis.com/opentileserver
+
+Cited, Inc. 
+
+Wilmington, Delaware
+
+https://citedcorp.com
 
 
 
