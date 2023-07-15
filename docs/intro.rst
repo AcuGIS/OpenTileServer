@@ -4,7 +4,19 @@ Intro
 Overview
 ------------
 
-This script is for building a basic tile server with OpenStreetMap data ::
+This script is for building a basic tile server with OpenStreetMap data
+
+Features
+--------
+
+- Load OSM Data
+- Load OSM data (city, country, continent or planet).
+- Postgres, PostGIS, and osm2pgsql
+- Installs Postgres, PostGIS, and osm2pgsql.
+- Installs and configures Apache for http or https
+- Mapnik, mod_tile, and renderd
+- OSM-carto or OSM-bright
+- OpenLayer and Leaflet example page.
 
 
 Authors
