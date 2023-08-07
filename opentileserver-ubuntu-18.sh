@@ -307,22 +307,20 @@ function configure_webpages(){
 
 	#Set Leaflet point of view
 	LOC_NAME=$(echo ${PBF_URL##*/} | sed 's/\(.*\)-latest.*/\1/')
-	cat >/tmp/latlong.php <<EOF
-<?php
-  \$Address = urlencode(\$argv[1]);
-  \$request_url = "http://maps.googleapis.com/maps/api/geocode/xml?address=".\$Address."&sensor=true";
-  \$xml = simplexml_load_file(\$request_url) or die("url not loading");
-  \$status = \$xml->status;
-  if (\$status=="OK") {
-      \$Lat = \$xml->result->geometry->location->lat;
-      \$Lon = \$xml->result->geometry->location->lng;
-      \$LatLng = "\$Lat,\$Lon";
-	echo "\$LatLng";
-  }
-?>
+	cat >/tmp/latlong.py <<EOF
+import sys
+import requests
+import re
+
+place = sys.argv[1]
+url = 'https://www.mapdevelopers.com/geocode_tool.php?address=' + place
+response = requests.get(url)
+if response.status_code == 200:
+	res = re.findall(r"geocode_tool\.php\?lat=([0-9\-\.]+)&lng=([0-9\-\.]+)", str(response.content));
+	print(res[0][0] + "," + res[0][1])
 EOF
 	echo "Updating lat,long for ${LOC_NAME} in Leaflet..."
-	LOC_LATLONG=$(php /tmp/latlong.php "${LOC_NAME}")
+	LOC_LATLONG=$(python3 /tmp/latlong.py "${LOC_NAME}")
 	if [ -z "${LOC_LATLONG}" ]; then
 		echo "Error: Lat/Long for ${LOC_NAME} not found";
 		echo "Update manually in /var/www/html/leaflet-example.html"
