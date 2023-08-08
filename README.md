@@ -21,11 +21,11 @@ This script is for building a basic tile server with OpenStreetMap data.
 
 For demos to work, be sure your hostname is set properly.
 
-On a clean Ubuntu 20 install.
+On a clean Ubuntu 22 install.
 
 1. Get the script and make it executable:
 
-    wget https://raw.githubusercontent.com/AcuGIS/OpenTileServer/master/opentileserver-ubuntu-20.sh && chmod +x opentileserver-ubuntu-20.sh
+    wget https://raw.githubusercontent.com/AcuGIS/OpenTileServer/master/opentileserver-ubuntu-22.sh && chmod +x opentileserver-ubuntu-22.sh
 
 2. If using a non-Latin alphabet, ucomment line 24 below:
 
@@ -35,7 +35,7 @@ On a clean Ubuntu 20 install.
 
 ### Running the script:
 
-    ./opentileserver-ubuntu-20.sh  [web|ssl] [bright|carto] pbf_url
+    ./opentileserver-ubuntu-22.sh  [web|ssl] [bright|carto] pbf_url
 
 [web|ssl]: 'web' for http and 'ssl' for https.
 
@@ -48,15 +48,15 @@ pbf_url: Complete PBF url from GeoFabrik (or other source)
 
 Load Delaware data with openstreetmap-carto style and no SSL:
 
-    ./opentileserver-ubuntu-20.sh web carto http://download.geofabrik.de/north-america/us/delaware-latest.osm.pbf 
+    ./opentileserver-ubuntu-22.sh web carto http://download.geofabrik.de/north-america/us/delaware-latest.osm.pbf 
 
 Load Bulgaria data with openstreetmap-bright style and SSL:
 
-    ./opentileserver-ubuntu-20.sh http://download.geofabrik.de/europe/bulgaria-latest.osm.pbf bright
+    ./opentileserver-ubuntu-22.sh http://download.geofabrik.de/europe/bulgaria-latest.osm.pbf bright
 
 Load South America data with openstreetmap-carto style and SSL:
 
-    ./opentileserver-ubuntu-20.sh ssl carto http://download.geofabrik.de/south-america-latest.osm.pbf
+    ./opentileserver-ubuntu-22.sh ssl carto http://download.geofabrik.de/south-america-latest.osm.pbf
 
 
 ### Using SSL:
@@ -112,7 +112,7 @@ Once installation completes, navigate to the IP or hostname of your server.
 
 You should see a page as below:
 
-![OpenTileServer](docs/OpenTileServer-WelcomeApp.png)
+![OpenTileServer](docs/OpenStreetMap-Server.png)
 
 
 
