@@ -441,7 +441,7 @@ function load_data(){
 
 	#create the custom indexes
 	if [ $OSM_STYLE -eq 'carto' ]; then
-		sudo -u ${OSM_USER} psql -d gis -f cd /usr/local/share/maps/style/openstreetmap-carto-${CARTO_VER}/indexes.sql
+		sudo -u ${OSM_USER} psql -d gis -f /usr/local/share/maps/style/openstreetmap-carto-${CARTO_VER}/indexes.sql
 	fi
 
 	#Turn on autovacuum and fsync after load of PBF
