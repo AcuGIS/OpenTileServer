@@ -88,11 +88,7 @@ s|config\[\"postgis\"\]\[\"password\"\].*|config\[\"postgis\"\]\[\"password\"\]=
 		python2.7 ./configure.py
 		python2.7 ./make.py
 		cd ../OSMBright/
-
-		#rm -f /usr/local/bin/carto
-		#npm remove carto
-		#npm install -g carto
-		
+	
 		carto project.mml > OSMBright.xml
 	fi
 	OSM_STYLE_XML='/usr/local/share/maps/style/OSMBright/OSMBright.xml'
@@ -205,8 +201,13 @@ EOF_CMD
 }
 
 function install_mapnik(){	
-	apt-get install -y osm2pgsql python3-mapnik libmapnik3.1 mapnik-utils libmapnik-dev
-	#build_mapnik_src;
+	apt-get install -y osm2pgsql
+	
+	if [ ${OSM_STYLE} == 'carto' ]; then
+		apt-get install -y osm2pgsql python3-mapnik libmapnik3.1 mapnik-utils libmapnik-dev
+	else
+		build_mapnik_src;
+	fi
 	#build_mapnik_pkg;
 }
 
@@ -219,7 +220,7 @@ function build_mapnik_src(){
 	
 	pushd mapnik
 		# fix for build failure
-		sed -i.save 's/DEFAULT_CXX_STD.*/DEFAULT_CXX_STD = "17"' SConstruct
+		#sed -i.save 's/DEFAULT_CXX_STD.*/DEFAULT_CXX_STD = "17"' SConstruct
 		
 		git submodule update --init
 		
@@ -291,6 +292,10 @@ HOST=${HNAME}
 URI=/osm_tiles/
 TILEDIR=/var/cache/renderd/tiles
 CAT_EOF
+	
+	if [ "${OSM_STYLE}" == 'bright' ]; then
+		sed -i.save 's|^plugins_dir=.*|plugins_dir=/usr/lib/x86_64-linux-gnu/mapnik/input|' /etc/renderd.conf
+	fi
 }
 
 function configure_webpages(){
@@ -490,7 +495,7 @@ enable_osm_updates
 sed -i 's/local all all.*/local all all trust/'  /etc/postgresql/${PG_MAJOR}/main/pg_hba.conf
 
 #Restart services
-systemctl restart postgresql apache2
+systemctl restart postgresql apache2 renderd
 
 cat <<EOF
 OSM server install done.
