@@ -1,6 +1,7 @@
 #!/bin/bash -e
 
-#For use on clean Ubuntu 20.04 only!!!
+#For use on clean Ubuntu 22.04 only!!!
+# TODO: disable bright, because of PROJ 8 ?
 #Usage: ./opentileserver.sh [web|ssl] [bright|carto] [pbf_url]"
 
 #Example for Delaware
@@ -22,20 +23,11 @@ HNAME=$(hostname | sed -n 1p | cut -f1 -d' ' | tr -d '\n')
 NP=$(grep -c 'model name' /proc/cpuinfo)
 osm2pgsql_OPTS="--slim -d ${OSM_DB} --number-processes ${NP} --hstore"
 
-#Check input parameters
-if [ -z "${PBF_URL}" -o \
-	 $(echo "${OSM_STYLE}" | grep -c '[briht|carto]') -eq 0 -o \
-	 $(echo "${WEB_MODE}"  | grep -c '[web|ssl]')	  -eq 0 ]; then
-	echo "Usage: $0 [web|ssl] [bright|carto] pbf_url"; exit 1;
-fi
-
-touch /root/auth.txt
-
 function style_osm_bright(){
 	cd /usr/local/share/maps/style
 	if [ ! -d 'osm-bright-master' ]; then
 		wget --no-check-certificate https://github.com/mapbox/osm-bright/archive/master.zip
-		unzip master.zip;
+		unzip master.zip
 		mkdir -p osm-bright-master/shp
 		rm -f master.zip
 	fi
@@ -53,7 +45,7 @@ function style_osm_bright(){
 	done
 
 	if [ ! -d 'osm-bright-master/shp/ne_10m_populated_places' ]; then
-		wget http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places.zip
+		wget https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places.zip
 		unzip ne_10m_populated_places.zip
 		mkdir -p osm-bright-master/shp/ne_10m_populated_places
 		rm ne_10m_populated_places.zip
@@ -64,10 +56,11 @@ function style_osm_bright(){
 	#9 Configuring OSM Bright
 	if [ $(grep -c '.zip' /usr/local/share/maps/style/osm-bright-master/osm-bright/osm-bright.osm2pgsql.mml) -ne 0 ]; then	#if we have zip in mml
 		cd /usr/local/share/maps/style/osm-bright-master
-		cp osm-bright/osm-bright.osm2pgsql.mml osm-bright/osm-bright.osm2pgsql.mml.orig
-		sed -i.save 's|.*simplified-land-polygons-complete-3857.zip",|"file":"/usr/local/share/maps/style/osm-bright-master/shp/simplified-land-polygons-complete-3857/simplified_land_polygons.shp",\n"type": "shape",|' osm-bright/osm-bright.osm2pgsql.mml
-		sed -i.save 's|.*land-polygons-split-3857.zip"|"file":"/usr/local/share/maps/style/osm-bright-master/shp/land-polygons-split-3857/land_polygons.shp",\n"type":"shape"|' osm-bright/osm-bright.osm2pgsql.mml
-		sed -i.save 's|.*10m-populated-places-simple.zip"|"file":"/usr/local/share/maps/style/osm-bright-master/shp/ne_10m_populated_places/ne_10m_populated_places.shp",\n"type": "shape"|' osm-bright/osm-bright.osm2pgsql.mml
+		
+		sed -i.save '
+s|.*simplified-land-polygons-complete-3857.zip",|"file":"/usr/local/share/maps/style/osm-bright-master/shp/simplified-land-polygons-complete-3857/simplified_land_polygons.shp",\n"type": "shape",|
+s|.*land-polygons-split-3857.zip"|"file":"/usr/local/share/maps/style/osm-bright-master/shp/land-polygons-split-3857/land_polygons.shp",\n"type":"shape"|
+s|.*10m-populated-places-simple.zip"|"file":"/usr/local/share/maps/style/osm-bright-master/shp/ne_10m_populated_places/ne_10m_populated_places.shp",\n"type": "shape"|' osm-bright/osm-bright.osm2pgsql.mml
 
 		sed -i.save '/name":[ \t]*"ne_places"/a"srs": "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"' osm-bright/osm-bright.osm2pgsql.mml
 		#Delete
@@ -80,19 +73,22 @@ function style_osm_bright(){
 	fi
 
 	#10 Compiling the stylesheet
+	apt-get -y install python2.7-minimal
+	
 	if [ ! -f /usr/local/share/maps/style/osm-bright-master/OSMBright/OSMBright.xml ]; then
 		cd /usr/local/share/maps/style/osm-bright-master
 		cp configure.py.sample configure.py
 		sed -i.save 's|config\["path"\].*|config\["path"\] = path.expanduser("/usr/local/share/maps/style")|' configure.py
-		sed -i.save "s|config\[\"postgis\"\]\[\"dbname\"\].*|config\[\"postgis\"\]\[\"dbname\"\]=\"${OSM_DB}\"|" configure.py
-		./configure.py
-		./make.py
+		
+		sed -i.save "
+s|config\[\"postgis\"\]\[\"dbname\"\].*|config\[\"postgis\"\]\[\"dbname\"\]=\"${OSM_DB}\"|
+s|config\[\"postgis\"\]\[\"user\"\].*|config\[\"postgis\"\]\[\"user\"\]=\"${OSM_USER}\"|
+s|config\[\"postgis\"\]\[\"password\"\].*|config\[\"postgis\"\]\[\"password\"\]=\"${OSM_USER_PASS}\"|" configure.py
+		
+		python2.7 ./configure.py
+		python2.7 ./make.py
 		cd ../OSMBright/
-
-		rm -f /usr/local/bin/carto
-		npm remove carto
-
-		npm install -g carto
+	
 		carto project.mml > OSMBright.xml
 	fi
 	OSM_STYLE_XML='/usr/local/share/maps/style/OSMBright/OSMBright.xml'
@@ -104,22 +100,27 @@ function install_npm_carto(){
 }
 
 function style_osm_carto(){
-	CARTO_VER='5.3.1'
-	apt-get -y install ttf-dejavu fonts-droid-fallback ttf-unifont fonts-sipa-arundina fonts-sil-padauk fonts-khmeros fonts-indic fonts-taml-tscu fonts-lohit-knda fonts-knda
-	apt-get -y install fonts-noto-cjk fonts-noto-hinted fonts-noto-unhinted fonts-hanazono ttf-unifont
-	apt-get -y install python3-psycopg2 gdal-bin
+	CARTO_VER='5.7.0'
+	apt-get -y install fonts-droid-fallback fonts-unifont fonts-sipa-arundina \
+				fonts-sil-padauk fonts-khmeros fonts-indic fonts-taml-tscu fonts-lohit-knda fonts-knda \
+				fonts-noto-cjk fonts-noto-hinted fonts-noto-unhinted fonts-hanazono \
+				python3-psycopg2 gdal-bin
+
 
 	cd /usr/local/share/maps/style
 	if [ ! -d openstreetmap-carto-${CARTO_VER} ]; then
 		wget --no-check-certificate https://github.com/gravitystorm/openstreetmap-carto/archive/v${CARTO_VER}.zip
 		unzip v${CARTO_VER}.zip
-		rm v${CARTO_VER}.zip
+		rm -f v${CARTO_VER}.zip
 	fi
 	cd openstreetmap-carto-${CARTO_VER}/
 
 	./scripts/get-external-data.py -d ${OSM_DB} -U ${OSM_USER}
+	#./scripts/get-fonts.sh
 
-	carto -a "3.0.0" project.mml >osm-carto.xml
+	sed -i.save '/dbname: "gis"/a\    user: "tile"' project.mml
+
+	carto -a "3.0.22" project.mml >osm-carto.xml
 
 	osm2pgsql_OPTS+=" --style /usr/local/share/maps/style/openstreetmap-carto-${CARTO_VER}/openstreetmap-carto.style"
 	osm2pgsql_OPTS+=" --tag-transform-script /usr/local/share/maps/style/openstreetmap-carto-${CARTO_VER}/openstreetmap-carto.lua"
@@ -184,6 +185,7 @@ CMD_EOF
 	else
 		psql -Upostgres -c "alter user ${OSM_USER} with password '${OSM_PG_PASS}';"
 	fi
+	echo "${OSM_USER} PG pass: ${OSM_PG_PASS}" >> /root/auth.txt
 
 	if [ $(psql -Upostgres -c "select datname from pg_database" | grep -m 1 -c ${OSM_DB}) -eq 0 ]; then
 		psql -Upostgres -c "create database ${OSM_DB} owner=${OSM_USER};"
@@ -198,52 +200,70 @@ ALTER TABLE spatial_ref_sys OWNER TO ${OSM_USER};
 EOF_CMD
 }
 
-function install_mapnik(){
-	#5 Installing osm2pgsql and mapnik
-	#osm2pgsql has pg-9.3 dependency
-	apt-get install -y osm2pgsql python3-mapnik libmapnik3.0 mapnik-utils libmapnik-dev
+function install_libproj7(){
+	PROJ_VER='7.2.1'
+	
+	apt-get -y install libsqlite3-dev sqlite3 pkg-config libtiff-dev \
+		libcurl4-openssl-dev checkinstall
+	
+	wget -P/tmp https://download.osgeo.org/proj/proj-${PROJ_VER}.tar.gz
+	tar -xf /tmp/proj-${PROJ_VER}.tar.gz
+	
+	pushd proj-${PROJ_VER}
+		./configure
+		make -j ${NP}
+		checkinstall -y --pkgname libproj7 --pkgversion=${PROJ_VER} --pkgrelease=1 --nodoc --provides=libproj7
+		#make install
+		
+		ldconfig
+		rm -f backup-*.tgz
+	popd
+	rm -rf proj-${PROJ_VER} 
+}
+
+function build_mapnik_pkg(){
+	apt-get -y install build-essential pbuilder
+	
+	sed -i.save 's/# deb\-src/deb-src/' /etc/apt/sources.list
+	apt-get -y update
+	
+	apt-get -y build-dep python3-mapnik libmapnik3.1 mapnik-utils libmapnik-dev
+	
+	apt-get -y source mapnik
+		
+	pushd mapnik-3.1.0+ds
+		#sed -i.save '' debian/rules
+		#sed -i.save 's/\-std=c++14/-std=c++17/' SConstruct
+		sed -i.save 's|SCONS_FLAGS += PROJ_INCLUDES.*|SCONS_FLAGS += PROJ_INCLUDES=/usr/local/include/ PROJ_LIBS=/usr/local/lib/|' debian/rules
+		sed -i.save 's|libproj-dev|libproj7|' debian/control
+		rm -f debian/rules.save debian/control.save
+		echo 'libproj 19 libproj7' > debian/shlibs.local
+		
+		debuild -us -uc
+	popd
+	rm -rf mapnik-3.1.0+ds/
+	
+	dpkg -i *.deb
+	
+	# disable updates on custom mapnik
+	echo "libmapnik3.1 hold" | dpkg --set-selections
+	echo "libmapnik-dev hold" | dpkg --set-selections
+	echo "mapnik-utils hold" | dpkg --set-selections
+}
+
+function install_mapnik(){	
+	apt-get install -y osm2pgsql
+	
+	if [ ${OSM_STYLE} == 'carto' ]; then
+		apt-get install -y python3-mapnik libmapnik3.1 mapnik-utils libmapnik-dev
+	else
+		install_libproj7;
+		build_mapnik_pkg;
+	fi
 }
 
 function install_modtile(){
-	apt-get -y install libiniparser-dev
-
-	#7 Install modtile and renderd
-	if [ "$(which renderd)" ]; then	#if mapnik is installed
-		return 0;
-	fi
-
-	mkdir -p ~/src
-	pushd ~/src
-	git clone https://github.com/openstreetmap/mod_tile.git
-	if [ ! -d mod_tile ]; then "Error: Failed to download mod_tile"; exit 1; fi
-
-	pushd mod_tile
-	git checkout 0.5
-	./autogen.sh
-	./configure
-
-	#install breaks if dir exists
-	if [ -d /var/lib/mod_tile ]; then rm -r /var/lib/mod_tile; fi
-
-	make
-	make install
-	make install-mod_tile
-
-	ldconfig
-	cp  debian/renderd.init /etc/init.d/renderd
-	#Update daemon config
-	sed -i.save 's|^DAEMON=.*|DAEMON=/usr/local/bin/$NAME|' /etc/init.d/renderd
-	sed -i.save 's|^DAEMON_ARGS=.*|DAEMON_ARGS="-c /usr/local/etc/renderd.conf"|' /etc/init.d/renderd
-	sed -i.save "s|^RUNASUSER=.*|RUNASUSER=${OSM_USER}|" /etc/init.d/renderd
-
-	chmod u+x /etc/init.d/renderd
-	ln -sf /etc/init.d/renderd /etc/rc2.d/S20renderd
-	mkdir -p /var/run/renderd
-	chown ${OSM_USER}:${OSM_USER} /var/run/renderd
-
-	popd
-	rm -rf mod_tile
-	popd
+	apt-get -y install renderd libapache2-mod-tile	
 }
 
 function configure_stylesheet(){
@@ -263,37 +283,13 @@ function configure_stylesheet(){
 }
 
 function configure_webserver(){
-
-	MAPNIK_PLUG=$(mapnik-config --input-plugins)
-	#remove commented lines, because daemon produces warning!
-	sed -i.save '/^;/d' /usr/local/etc/renderd.conf
-	sed -i.save 's/;socketname/socketname/' /usr/local/etc/renderd.conf
-	sed -i.save "s|^plugins_dir=.*|plugins_dir=${MAPNIK_PLUG}|" /usr/local/etc/renderd.conf
-	sed -i.save 's|^font_dir=.*|font_dir=/usr/share/fonts/truetype/|' /usr/local/etc/renderd.conf
-	sed -i.save "s|^XML=.*|XML=${OSM_STYLE_XML}|" /usr/local/etc/renderd.conf
-	sed -i.save 's|^HOST=.*|HOST=localhost|' /usr/local/etc/renderd.conf
-
-	mkdir -p /var/run/renderd
-	chown ${OSM_USER}:${OSM_USER} /var/run/renderd
-	mkdir -p /var/lib/mod_tile
-	chown ${OSM_USER}:${OSM_USER} /var/lib/mod_tile
-
-	#12 Configure mod_tile
-	if [ ! -f /etc/apache2/conf-available/mod_tile.conf ]; then
-		echo 'LoadModule tile_module /usr/lib/apache2/modules/mod_tile.so' > /etc/apache2/conf-available/mod_tile.conf
-
-		echo 'LoadTileConfigFile /usr/local/etc/renderd.conf
-	ModTileRenderdSocketName /var/run/renderd/renderd.sock
-	# Timeout before giving up for a tile to be rendered
-	ModTileRequestTimeout 0
-	# Timeout before giving up for a tile to be rendered that is otherwise missing
-	ModTileMissingRequestTimeout 30' > /etc/apache2/sites-available/tile.conf
-
-		sed -i.save "/ServerAdmin/aInclude /etc/apache2/sites-available/tile.conf" /etc/apache2/sites-available/000-default.conf
-
-		a2enconf mod_tile
-		systemctl reload apache2
-	fi
+	cat >> /etc/renderd.conf <<CAT_EOF
+[default]
+XML=${OSM_STYLE_XML}
+HOST=${HNAME}
+URI=/osm_tiles/
+TILEDIR=/var/cache/renderd/tiles
+CAT_EOF
 }
 
 function configure_webpages(){
@@ -304,27 +300,27 @@ function configure_webpages(){
 
 	cp -r /tmp/OpenTileServer-master/app/* /var/www/html/
 	rm -rf /tmp/master.zip
-        sed -i.save "s/localhost/${HNAME}/" /var/www/html/leaflet-example.html
- 
-
-
+  
+	sed -i.save "s/localhost/${HNAME}/" /var/www/html/leaflet-example.html
 	
 	#Set Leaflet point of view
 	LOC_NAME=$(echo ${PBF_URL##*/} | sed 's/\(.*\)-latest.*/\1/')
-	cat >/tmp/latlong.py <<EOF
-import sys
-import requests
-import re
-
-place = sys.argv[1]
-url = 'https://www.mapdevelopers.com/geocode_tool.php?address=' + place
-response = requests.get(url)
-if response.status_code == 200:
-	res = re.findall(r"geocode_tool\.php\?lat=([0-9\-\.]+)&lng=([0-9\-\.]+)", str(response.content));
-	print(res[0][0] + "," + res[0][1])
+	cat >/tmp/latlong.php <<EOF
+<?php
+  \$Address = urlencode(\$argv[1]);
+  \$request_url = "http://maps.googleapis.com/maps/api/geocode/xml?address=".\$Address."&sensor=true";
+  \$xml = simplexml_load_file(\$request_url) or die("url not loading");
+  \$status = \$xml->status;
+  if (\$status=="OK") {
+      \$Lat = \$xml->result->geometry->location->lat;
+      \$Lon = \$xml->result->geometry->location->lng;
+      \$LatLng = "\$Lat,\$Lon";
+	echo "\$LatLng";
+  }
+?>
 EOF
 	echo "Updating lat,long for ${LOC_NAME} in Leaflet..."
-	LOC_LATLONG=$(python3 /tmp/latlong.py "${LOC_NAME}")
+	LOC_LATLONG=$(php /tmp/latlong.php "${LOC_NAME}")
 	if [ -z "${LOC_LATLONG}" ]; then
 		echo "Error: Lat/Long for ${LOC_NAME} not found";
 		echo "Update manually in /var/www/html/leaflet-example.html"
@@ -356,8 +352,7 @@ EOF
 <IfModule mod_ssl.c>
 	<VirtualHost _default_:443>
 		ServerAdmin webmaster@localhost
-        Include /etc/apache2/sites-available/tile.conf
-        DocumentRoot /var/www/html
+    DocumentRoot /var/www/html
 
 		#LogLevel info ssl:warn
 
@@ -392,7 +387,7 @@ CMD_EOF
 		cat >/etc/apache2/sites-available/000-default.conf <<CMD_EOF
 <VirtualHost _default_:80>
 	ServerAdmin webmaster@localhost
-	Include /etc/apache2/sites-available/tile.conf
+	
 	DocumentRoot /var/www/html
 	ServerName ${VHOST}
 
@@ -449,24 +444,26 @@ function load_data(){
 	sed -i.save 's/#\?autovacuum.*/autovacuum = on/' /etc/postgresql/${PG_MAJOR}/main/postgresql.conf
 }
 
-#Steps
-#1 Update ATP and install needed packages
+
+#Check input parameters
+if [ -z "${PBF_URL}" -o \
+	 $(echo "${OSM_STYLE}" | grep -c '[briht|carto]') -eq 0 -o \
+	 $(echo "${WEB_MODE}"  | grep -c '[web|ssl]')	  -eq 0 ]; then
+	echo "Usage: $0 [web|ssl] [bright|carto] pbf_url"; exit 1;
+fi
+
+touch /root/auth.txt
+
 export DEBIAN_FRONTEND=noninteractive
 apt-get clean
-apt-get -y install software-properties-common
 
 #needed for a lot of packages!
 add-apt-repository -y universe
 
-apt-get -y install	libboost-dev subversion git tar unzip wget bzip2 \
-					build-essential autoconf libtool libxml2-dev libgeos-dev \
-					libgeos++-dev libpq-dev libbz2-dev libproj-dev munin-node \
-					munin libprotobuf-c-dev protobuf-c-compiler libfreetype6-dev \
-					libpng-dev libtiff5-dev libicu-dev libgdal-dev libcairo2-dev \
-					libcairomm-1.0-dev apache2 apache2-dev libagg-dev \
-					ttf-unifont fonts-arphic-ukai fonts-arphic-uming fonts-thai-tlwg \
-					lua-rrd-dev lua-rrd libgeotiff5 node-carto \
-					postgresql postgresql-contrib postgis postgresql-12-postgis-3 \
+apt-get -y install tar unzip wget bzip2 \
+					apache2 fonts-arphic-ukai fonts-arphic-uming fonts-thai-tlwg \
+					lua-rrd-dev lua-rrd libgeotiff5 \
+					postgresql postgresql-contrib postgis postgresql-14-postgis-3 \
 					php libapache2-mod-php php-xml
 
 
@@ -492,7 +489,6 @@ enable_osm_updates
 sed -i 's/local all all.*/local all all trust/'  /etc/postgresql/${PG_MAJOR}/main/pg_hba.conf
 
 #Restart services
-systemctl daemon-reload
 systemctl restart postgresql apache2 renderd
 
 cat <<EOF
