@@ -241,6 +241,7 @@ function build_mapnik_pkg(){
 		
 		debuild -us -uc
 	popd
+	rm -rf mapnik-3.1.0+ds/
 	
 	dpkg -i *.deb
 	
