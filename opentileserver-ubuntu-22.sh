@@ -200,48 +200,25 @@ ALTER TABLE spatial_ref_sys OWNER TO ${OSM_USER};
 EOF_CMD
 }
 
-function install_mapnik(){	
-	apt-get install -y osm2pgsql
+function install_libproj7(){
+	PROJ_VER='7.2.1'
 	
-	if [ ${OSM_STYLE} == 'carto' ]; then
-		apt-get install -y osm2pgsql python3-mapnik libmapnik3.1 mapnik-utils libmapnik-dev
-	else
-		build_mapnik_src;
-	fi
-	#build_mapnik_pkg;
-}
-
-function build_mapnik_src(){
-	apt-get -y install cmake make gcc g++ autoconf python3-pip \
-		libharfbuzz-dev libfreetype-dev libcairo2-dev
-	#pip3 install scons
+	apt-get -y install libsqlite3-dev sqlite3 pkg-config libtiff-dev \ 
+		libcurl4-openssl-dev checkinstall
 	
-	git clone https://github.com/mapnik/mapnik.git
+	wget -P/tmp https://download.osgeo.org/proj/proj-${PROJ_VER}.tar.gz
+	tar -xf /tmp/proj-${PROJ_VER}.tar.gz
 	
-	pushd mapnik
-		# fix for build failure
-		#sed -i.save 's/DEFAULT_CXX_STD.*/DEFAULT_CXX_STD = "17"' SConstruct
-		
-		git submodule update --init
-		
-		#export PYTHON=python3
-		#python3 scons/scons.py configure INPUT_PLUGINS=all OPTIMIZATION=3 SYSTEM_FONTS=/usr/share/fonts/truetype/ DEMO=False
-		
-		mkdir build
-		pushd build
-			cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release \
-						-DBUILD_TESTING=OFF -DBUILD_DEMO_VIEWER=OFF -DBUILD_DEMO_CPP=OFF \
-						-DUSE_STATS=ON \
-						../
-			JOBS=${NP} make
-			make install
-		popd
-		
-		cp ../utils/mapnik-config/mapnik-config /usr/bin/mapnik-config
+	pushd proj-${PROJ_VER}
+		./configure
+		make -j ${NP}
+		checkinstall -y --pkgname libproj7 --pkgversion=${PROJ_VER} --pkgrelease=1 --nodoc --provides=libproj7
+		#make install
 		
 		ldconfig
+		rm -f backup-*.tgz
 	popd
-	rm -rf mapnik
+	rm -rf proj-${PROJ_VER} 
 }
 
 function build_mapnik_pkg(){
@@ -253,19 +230,39 @@ function build_mapnik_pkg(){
 	apt-get -y build-dep python3-mapnik libmapnik3.1 mapnik-utils libmapnik-dev
 	
 	apt-get -y source mapnik
-	
-	# trick SCons builder, which uses old proj_api.h for PROJ detection
-	ln -s /usr/include/proj.h /usr/include/proj_api.h
-	#touch /usr/include/proj_api.h
-	
+		
 	pushd mapnik-3.1.0+ds
-		sed -i.save 's|SCONS_FLAGS += PROJ_INCLUDES.*|SCONS_FLAGS += PROJ_INCLUDES=/usr/include/ PROJ_LIBS=/usr/lib/x86_64-linux-gnu/|' debian/rules
-		debuild
+		#sed -i.save '' debian/rules
+		#sed -i.save 's/\-std=c++14/-std=c++17/' SConstruct
+		sed -i.save 's|SCONS_FLAGS += PROJ_INCLUDES.*|SCONS_FLAGS += PROJ_INCLUDES=/usr/local/include/ PROJ_LIBS=/usr/local/lib/|' debian/rules
+		sed -i.save 's|libproj-dev|libproj7|' debian/control
+		rm -f debian/rules.save debian/control.save
+		echo 'libproj 19 libproj7' > debian/shlibs.local
+		
+		debuild -us -uc
 	popd
+	
+	dpkg -i *.dev
+	
+	# disable updates on custom mapnik
+	echo "libmapnik3.1 hold" | dpkg --set-selections
+	echo "libmapnik-dev hold" | dpkg --set-selections
+	echo "mapnik-utils hold" | dpkg --set-selections
+}
+
+function install_mapnik(){	
+	apt-get install -y osm2pgsql
+	
+	if [ ${OSM_STYLE} == 'carto' ]; then
+		apt-get install -y python3-mapnik libmapnik3.1 mapnik-utils libmapnik-dev
+	else
+		install_libproj7;
+		build_mapnik_pkg;
+	fi
 }
 
 function install_modtile(){
-	apt-get -y install renderd libapache2-mod-tile
+	apt-get -y install renderd libapache2-mod-tile	
 }
 
 function configure_stylesheet(){
@@ -292,10 +289,6 @@ HOST=${HNAME}
 URI=/osm_tiles/
 TILEDIR=/var/cache/renderd/tiles
 CAT_EOF
-	
-	if [ "${OSM_STYLE}" == 'bright' ]; then
-		sed -i.save 's|^plugins_dir=.*|plugins_dir=/usr/lib/x86_64-linux-gnu/mapnik/input|' /etc/renderd.conf
-	fi
 }
 
 function configure_webpages(){
