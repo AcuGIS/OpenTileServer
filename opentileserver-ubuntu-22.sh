@@ -242,7 +242,7 @@ function build_mapnik_pkg(){
 		debuild -us -uc
 	popd
 	
-	dpkg -i *.dev
+	dpkg -i *.deb
 	
 	# disable updates on custom mapnik
 	echo "libmapnik3.1 hold" | dpkg --set-selections
