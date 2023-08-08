@@ -303,11 +303,6 @@ function configure_webpages(){
 	rm -rf /tmp/master.zip
   
 	sed -i.save "s/localhost/${HNAME}/" /var/www/html/leaflet-example.html
-	sed -i.save 's/osm_tiles/mod_tiles/' /var/www/html/leaflet-example.html
-	sed -i.save 's/osm_tiles/mod_tiles/' /var/www/html/openlayers-example.html
- 
-
-
 	
 	#Set Leaflet point of view
 	LOC_NAME=$(echo ${PBF_URL##*/} | sed 's/\(.*\)-latest.*/\1/')
