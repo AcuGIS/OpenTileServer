@@ -203,7 +203,7 @@ EOF_CMD
 function install_libproj7(){
 	PROJ_VER='7.2.1'
 	
-	apt-get -y install libsqlite3-dev sqlite3 pkg-config libtiff-dev \ 
+	apt-get -y install libsqlite3-dev sqlite3 pkg-config libtiff-dev \
 		libcurl4-openssl-dev checkinstall
 	
 	wget -P/tmp https://download.osgeo.org/proj/proj-${PROJ_VER}.tar.gz

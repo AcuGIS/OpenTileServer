@@ -446,7 +446,7 @@ export DEBIAN_FRONTEND=noninteractive
 apt-get clean
 
 #needed for a lot of packages!
-apt install -y software-properties-common && add-apt-repository universe
+apt install -y software-properties-common && add-apt-repository -y universe
 
 apt-get -y install	libboost-dev libiniparser-dev subversion git tar unzip wget bzip2 \
 					build-essential autoconf libtool libxml2-dev libgeos-dev \

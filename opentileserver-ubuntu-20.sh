@@ -456,7 +456,7 @@ apt-get clean
 apt-get -y install software-properties-common
 
 #needed for a lot of packages!
-add-apt-repository universe
+add-apt-repository -y universe
 
 apt-get -y install	libboost-dev subversion git tar unzip wget bzip2 \
 					build-essential autoconf libtool libxml2-dev libgeos-dev \
