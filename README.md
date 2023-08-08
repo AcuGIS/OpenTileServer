@@ -2,7 +2,7 @@
 
 ## Build an OpenStreetMap Server
 
-![OpenTileServer](docs/OpenTileServer-WelcomeApp.png)
+![OpenTileServer](docs/OpenStreetMap-Server.png)
 
 
 * Project page: https://www.acugis.com/opentileserver
