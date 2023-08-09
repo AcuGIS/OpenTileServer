@@ -7,7 +7,7 @@ OpenTileServer
 ==================================================
 
 
-.. image:: OpenTileServer-WelcomeApp.png
+.. image:: OpenStreetMap-Server.png
 
 .. toctree::
    :caption: Getting Started
