@@ -85,7 +85,7 @@ Once installation completes, navigate to the IP or hostname of your server.
 
 You should see a page as below:
 
-.. image:: OpenTileServer-WelcomeApp.png
+.. image:: OpenStreetMap-Server.png
 
 
 Click on both the OpenLayer and Leaflet Examples and check your installation is rendering
