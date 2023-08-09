@@ -1,4 +1,4 @@
-# OpenTileServer
+# OpenStreetMap Server
 
 ## Build an OpenStreetMap Server
 
